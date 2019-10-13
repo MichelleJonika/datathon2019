@@ -1,0 +1,1134 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={dplyr Package Review},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{dplyr Package Review}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+\maketitle
+
+\subsection{Introduction}\label{introduction}
+
+The dplyr package was adapted from the plyr package September 28, 2017
+and is used for manipulation of data frames. Some advantages of the
+package are:
+
+\begin{itemize}
+\tightlist
+\item
+  Uses simple verb functions
+\item
+  Quicker computations- uses backends
+\item
+  Uses same interface for data tables (dtplyr) and databases (dbplyr)
+\item
+  Don't have to constantly call dataset
+\end{itemize}
+
+The programming examples used for our presentation were modeled after a
+dplyr demonstration found at:
+\url{https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html}
+
+\subsection{Simple Verb Commands}\label{simple-verb-commands}
+
+To investigate dplyr's command functions, a dataset was obtained from
+the American Racing Pigeon Union. Pigeon carriers were once considered a
+highly sophisticated means of communication and some pigeons were even
+used as spies during WW2. Today, pigeon racing is still a hobby for
+some.
+
+Some things to note about these commands:
+
+\begin{itemize}
+\tightlist
+\item
+  First argument is the data frame
+\item
+  Subsequent arguments explain what to do with the original data frame
+\item
+  Results in new data frame
+\item
+  You can call columns directly without using `\$'
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rm}\NormalTok{(}\DataTypeTok{list=}\KeywordTok{ls}\NormalTok{())}
+\KeywordTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'dplyr' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pigeons =}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'Pigeon_Racing.csv'}\NormalTok{, }\DataTypeTok{na.strings =} \KeywordTok{c}\NormalTok{(}\StringTok{""}\NormalTok{,}\StringTok{"NA"}\NormalTok{))}
+\NormalTok{coolpigeons=}\KeywordTok{subset}\NormalTok{(pigeons, }\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(Name))}
+\NormalTok{coolpigeons=}\KeywordTok{as_tibble}\NormalTok{(coolpigeons) }\CommentTok{#The dataset type dplyr works best with}
+\KeywordTok{head}\NormalTok{(coolpigeons)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 6
+##     Pos Breeder               Name           Color Sex   Speed
+##   <int> <fct>                 <fct>          <fct> <fct> <dbl>
+## 1     3 Jerry Allensworth     Perch Potato   BB    H      163.
+## 2    36 Equalizer Loft        Lil Dat        BC    H      161.
+## 3    67 Charlie's Little Loft Bella          BLCK  H      158.
+## 4    71 Jerry Allensworth     "\"the Duck\"" BBWF  H      154.
+## 5    87 Jerry Allensworth     Alice          BB    H      152.
+## 6   156 Milner-Mckinsey       Christie       OPWF  H      146.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{(coolpigeons)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "tbl_df"     "tbl"        "data.frame"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{arrange}\NormalTok{(coolpigeons, Color, Speed) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 6
+##      Pos Breeder               Name           Color Sex   Speed
+##    <int> <fct>                 <fct>          <fct> <fct> <dbl>
+##  1   393 Braden/Olivieri       Rogue Brew     BB    H      91.2
+##  2   296 Charlie's Little Loft Edward         BB    H     105. 
+##  3   256 Jerry Allensworth     Color Me Hot   BB    H     114. 
+##  4   193 Tongol 11             BLACK NIGTH 9  BB    H     136. 
+##  5   172 King City             Gypsy          BB    H     140. 
+##  6    87 Jerry Allensworth     Alice          BB    H     152. 
+##  7     3 Jerry Allensworth     Perch Potato   BB    H     163. 
+##  8   245 King City             Kingston       BBPI  H     116. 
+##  9   387 Braden/Olivieri       Canned Heat    BBWF  H      91.3
+## 10   369 Hutchins/Milner       Jack Frost     BBWF  H      91.5
+## 11   229 Tongol 11             BATTLE BORN 27 BBWF  H     121. 
+## 12    71 Jerry Allensworth     "\"the Duck\"" BBWF  H     154. 
+## 13   278 Charlie's Little Loft Charlie        BC    H     109. 
+## 14   244 Equalizer Loft        Pop's Pick     BC    H     116. 
+## 15    36 Equalizer Loft        Lil Dat        BC    H     161. 
+## 16   334 King City             Gage           BKWF  H      99.4
+## 17    67 Charlie's Little Loft Bella          BLCK  H     158. 
+## 18   292 Milner-Mckinsey       Elle           OPAL  H     106. 
+## 19   156 Milner-Mckinsey       Christie       OPWF  H     146. 
+## 20   277 Tongol 11             SEMPER FI 11   WGRZ  H     109.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#The data frame is reordered by color in alphabetic order, if two pigeons have the same color, their order is determined by speed in ascending order. Additional arguments may be added and are used to break ties of preceding columns.}
+\KeywordTok{arrange}\NormalTok{(coolpigeons, Color, }\KeywordTok{desc}\NormalTok{(Speed))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 6
+##      Pos Breeder               Name           Color Sex   Speed
+##    <int> <fct>                 <fct>          <fct> <fct> <dbl>
+##  1     3 Jerry Allensworth     Perch Potato   BB    H     163. 
+##  2    87 Jerry Allensworth     Alice          BB    H     152. 
+##  3   172 King City             Gypsy          BB    H     140. 
+##  4   193 Tongol 11             BLACK NIGTH 9  BB    H     136. 
+##  5   256 Jerry Allensworth     Color Me Hot   BB    H     114. 
+##  6   296 Charlie's Little Loft Edward         BB    H     105. 
+##  7   393 Braden/Olivieri       Rogue Brew     BB    H      91.2
+##  8   245 King City             Kingston       BBPI  H     116. 
+##  9    71 Jerry Allensworth     "\"the Duck\"" BBWF  H     154. 
+## 10   229 Tongol 11             BATTLE BORN 27 BBWF  H     121. 
+## 11   369 Hutchins/Milner       Jack Frost     BBWF  H      91.5
+## 12   387 Braden/Olivieri       Canned Heat    BBWF  H      91.3
+## 13    36 Equalizer Loft        Lil Dat        BC    H     161. 
+## 14   244 Equalizer Loft        Pop's Pick     BC    H     116. 
+## 15   278 Charlie's Little Loft Charlie        BC    H     109. 
+## 16   334 King City             Gage           BKWF  H      99.4
+## 17    67 Charlie's Little Loft Bella          BLCK  H     158. 
+## 18   292 Milner-Mckinsey       Elle           OPAL  H     106. 
+## 19   156 Milner-Mckinsey       Christie       OPWF  H     146. 
+## 20   277 Tongol 11             SEMPER FI 11   WGRZ  H     109.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Now the speeds are in descending order}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{select}\NormalTok{(coolpigeons, Pos, Breeder)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 2
+##      Pos Breeder              
+##    <int> <fct>                
+##  1     3 Jerry Allensworth    
+##  2    36 Equalizer Loft       
+##  3    67 Charlie's Little Loft
+##  4    71 Jerry Allensworth    
+##  5    87 Jerry Allensworth    
+##  6   156 Milner-Mckinsey      
+##  7   172 King City            
+##  8   193 Tongol 11            
+##  9   229 Tongol 11            
+## 10   244 Equalizer Loft       
+## 11   245 King City            
+## 12   256 Jerry Allensworth    
+## 13   277 Tongol 11            
+## 14   278 Charlie's Little Loft
+## 15   292 Milner-Mckinsey      
+## 16   296 Charlie's Little Loft
+## 17   334 King City            
+## 18   369 Hutchins/Milner      
+## 19   387 Braden/Olivieri      
+## 20   393 Braden/Olivieri
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Used to subset data by columns}
+\KeywordTok{select}\NormalTok{(coolpigeons, Pos}\OperatorTok{:}\NormalTok{Name)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 3
+##      Pos Breeder               Name          
+##    <int> <fct>                 <fct>         
+##  1     3 Jerry Allensworth     Perch Potato  
+##  2    36 Equalizer Loft        Lil Dat       
+##  3    67 Charlie's Little Loft Bella         
+##  4    71 Jerry Allensworth     "\"the Duck\""
+##  5    87 Jerry Allensworth     Alice         
+##  6   156 Milner-Mckinsey       Christie      
+##  7   172 King City             Gypsy         
+##  8   193 Tongol 11             BLACK NIGTH 9 
+##  9   229 Tongol 11             BATTLE BORN 27
+## 10   244 Equalizer Loft        Pop's Pick    
+## 11   245 King City             Kingston      
+## 12   256 Jerry Allensworth     Color Me Hot  
+## 13   277 Tongol 11             SEMPER FI 11  
+## 14   278 Charlie's Little Loft Charlie       
+## 15   292 Milner-Mckinsey       Elle          
+## 16   296 Charlie's Little Loft Edward        
+## 17   334 King City             Gage          
+## 18   369 Hutchins/Milner       Jack Frost    
+## 19   387 Braden/Olivieri       Canned Heat   
+## 20   393 Braden/Olivieri       Rogue Brew
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Inclusive selection of columns Pos to Name}
+\KeywordTok{select}\NormalTok{(coolpigeons, }\OperatorTok{-}\NormalTok{(Pos}\OperatorTok{:}\NormalTok{Name))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 3
+##    Color Sex   Speed
+##    <fct> <fct> <dbl>
+##  1 BB    H     163. 
+##  2 BC    H     161. 
+##  3 BLCK  H     158. 
+##  4 BBWF  H     154. 
+##  5 BB    H     152. 
+##  6 OPWF  H     146. 
+##  7 BB    H     140. 
+##  8 BB    H     136. 
+##  9 BBWF  H     121. 
+## 10 BC    H     116. 
+## 11 BBPI  H     116. 
+## 12 BB    H     114. 
+## 13 WGRZ  H     109. 
+## 14 BC    H     109. 
+## 15 OPAL  H     106. 
+## 16 BB    H     105. 
+## 17 BKWF  H      99.4
+## 18 BBWF  H      91.5
+## 19 BBWF  H      91.3
+## 20 BB    H      91.2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{select}\NormalTok{(coolpigeons, }\KeywordTok{starts_with}\NormalTok{(}\StringTok{"P"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 1
+##      Pos
+##    <int>
+##  1     3
+##  2    36
+##  3    67
+##  4    71
+##  5    87
+##  6   156
+##  7   172
+##  8   193
+##  9   229
+## 10   244
+## 11   245
+## 12   256
+## 13   277
+## 14   278
+## 15   292
+## 16   296
+## 17   334
+## 18   369
+## 19   387
+## 20   393
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{select}\NormalTok{(coolpigeons, }\KeywordTok{starts_with}\NormalTok{(}\StringTok{"p"}\NormalTok{,}\DataTypeTok{ignore.case=}\NormalTok{F))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Selects all columns that start with 'P'. Could also use ends_with(), contains(), matches(), num_range()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mutate}\NormalTok{(coolpigeons, }\DataTypeTok{speed_squared=}\NormalTok{ Speed}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 7
+##      Pos Breeder              Name          Color Sex   Speed speed_squared
+##    <int> <fct>                <fct>         <fct> <fct> <dbl>         <dbl>
+##  1     3 Jerry Allensworth    Perch Potato  BB    H     163.         26713.
+##  2    36 Equalizer Loft       Lil Dat       BC    H     161.         25992.
+##  3    67 Charlie's Little Lo~ Bella         BLCK  H     158.         24819.
+##  4    71 Jerry Allensworth    "\"the Duck\~ BBWF  H     154.         23676.
+##  5    87 Jerry Allensworth    Alice         BB    H     152.         23040.
+##  6   156 Milner-Mckinsey      Christie      OPWF  H     146.         21339.
+##  7   172 King City            Gypsy         BB    H     140.         19537.
+##  8   193 Tongol 11            BLACK NIGTH 9 BB    H     136.         18423.
+##  9   229 Tongol 11            BATTLE BORN ~ BBWF  H     121.         14535.
+## 10   244 Equalizer Loft       Pop's Pick    BC    H     116.         13384.
+## 11   245 King City            Kingston      BBPI  H     116.         13352.
+## 12   256 Jerry Allensworth    Color Me Hot  BB    H     114.         13005.
+## 13   277 Tongol 11            SEMPER FI 11  WGRZ  H     109.         11837.
+## 14   278 Charlie's Little Lo~ Charlie       BC    H     109.         11832.
+## 15   292 Milner-Mckinsey      Elle          OPAL  H     106.         11158.
+## 16   296 Charlie's Little Lo~ Edward        BB    H     105.         11052.
+## 17   334 King City            Gage          BKWF  H      99.4         9886.
+## 18   369 Hutchins/Milner      Jack Frost    BBWF  H      91.5         8374.
+## 19   387 Braden/Olivieri      Canned Heat   BBWF  H      91.3         8336.
+## 20   393 Braden/Olivieri      Rogue Brew    BB    H      91.2         8313.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Lets you add a column}
+\KeywordTok{transmute}\NormalTok{(coolpigeons, }\DataTypeTok{speed_squared=}\NormalTok{ Speed}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 1
+##    speed_squared
+##            <dbl>
+##  1        26713.
+##  2        25992.
+##  3        24819.
+##  4        23676.
+##  5        23040.
+##  6        21339.
+##  7        19537.
+##  8        18423.
+##  9        14535.
+## 10        13384.
+## 11        13352.
+## 12        13005.
+## 13        11837.
+## 14        11832.
+## 15        11158.
+## 16        11052.
+## 17         9886.
+## 18         8374.
+## 19         8336.
+## 20         8313.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Only keep the new column, instead of adding it}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summarise}\NormalTok{(coolpigeons, }\DataTypeTok{avg_speed=} \KeywordTok{mean}\NormalTok{(Speed, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##   avg_speed
+##       <dbl>
+## 1      124.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#You use the summarise() function with aggregate functions which take vectors and return single values. Some examples in R are: min(), max(), sum(), sd(), median(), IQR(). We will explore other examples that the dplyr package provides later.}
+
+\KeywordTok{sample_n}\NormalTok{(coolpigeons, }\DecValTok{5}\NormalTok{, }\DataTypeTok{replace=} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 6
+##     Pos Breeder           Name         Color Sex   Speed
+##   <int> <fct>             <fct>        <fct> <fct> <dbl>
+## 1   256 Jerry Allensworth Color Me Hot BB    H     114. 
+## 2   369 Hutchins/Milner   Jack Frost   BBWF  H      91.5
+## 3     3 Jerry Allensworth Perch Potato BB    H     163. 
+## 4   393 Braden/Olivieri   Rogue Brew   BB    H      91.2
+## 5   292 Milner-Mckinsey   Elle         OPAL  H     106.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sample_frac}\NormalTok{(coolpigeons, }\FloatTok{0.1}\NormalTok{, }\DataTypeTok{weight=}\NormalTok{ Speed)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 6
+##     Pos Breeder        Name    Color Sex   Speed
+##   <int> <fct>          <fct>   <fct> <fct> <dbl>
+## 1    36 Equalizer Loft Lil Dat BC    H      161.
+## 2   172 King City      Gypsy   BB    H      140.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#You can take a random sample of the rows by number (n) or fraction (frac) of total entries. replace = TRUE performs a bootstrap sample, can also apply a weight.}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Grouped Operations}\label{grouped-operations}
+
+The group\_by() function separates datasets into specified groups of
+rows. The dplyr verb commands can be used on these groups. Here's how
+each verb function is affected by grouping:
+
+\begin{itemize}
+\tightlist
+\item
+  select() - The variable used to group is also returned
+\item
+  arrange() - Sorts the variable selected by group first, only if
+  .by\_group=TRUE is added
+\item
+  sample\_(n/frac)() - Pulls specified sample from each group
+\item
+  summarise() - Does computation by group
+\end{itemize}
+
+In this example, we will group the pigeons by their breeders, then use
+the summarise() function to extrapolate data specific to each breeder.
+We will also explore the dplyr specific aggregate functions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{breeders=}\StringTok{ }\KeywordTok{group_by}\NormalTok{(coolpigeons, Breeder)}
+\KeywordTok{summarise}\NormalTok{(breeders, }
+          \DataTypeTok{count=} \KeywordTok{n}\NormalTok{(), }\CommentTok{#Gives the number of pigeons for each breeder}
+          \DataTypeTok{avg_speed=} \KeywordTok{mean}\NormalTok{(Speed, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+          \DataTypeTok{diff_color=} \KeywordTok{n_distinct}\NormalTok{(Color), }\CommentTok{#Gives the number of different color pigeons}
+          \DataTypeTok{first=} \KeywordTok{first}\NormalTok{(Name), }\CommentTok{#Gives the name of the first/last pigeon from each breeder}
+          \DataTypeTok{last=} \KeywordTok{last}\NormalTok{(Name),}
+          \DataTypeTok{nth=} \KeywordTok{nth}\NormalTok{(Name, }\DecValTok{2}\NormalTok{)) }\CommentTok{#Gives the name of the nth (2nd) pigeon from each breeder}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 8 x 7
+##   Breeder         count avg_speed diff_color first      last      nth      
+##   <fct>           <int>     <dbl>      <int> <fct>      <fct>     <fct>    
+## 1 Braden/Olivieri     2      91.2          2 Canned He~ Rogue Br~ Rogue Br~
+## 2 Charlie's Litt~     3     124.           3 Bella      Edward    Charlie  
+## 3 Equalizer Loft      2     138.           1 Lil Dat    Pop's Pi~ Pop's Pi~
+## 4 Hutchins/Milner     1      91.5          1 Jack Frost Jack Fro~ <NA>     
+## 5 Jerry Allenswo~     4     146.           2 Perch Pot~ Color Me~ "\"the D~
+## 6 King City           3     118.           3 Gypsy      Gage      Kingston 
+## 7 Milner-Mckinsey     2     126.           2 Christie   Elle      Elle     
+## 8 Tongol 11           3     122.           3 BLACK NIG~ SEMPER F~ BATTLE B~
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{characteristics=}\KeywordTok{group_by}\NormalTok{(coolpigeons, Color, Sex, Speed) }\CommentTok{#Here the pigeons are grouped by multiple variables}
+\NormalTok{type=}\KeywordTok{summarise}\NormalTok{(characteristics, }\DataTypeTok{birds=} \KeywordTok{n}\NormalTok{()) }\CommentTok{#This gives the number of each type of pigeon}
+\NormalTok{type}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 4
+## # Groups:   Color, Sex [9]
+##    Color Sex   Speed birds
+##    <fct> <fct> <dbl> <int>
+##  1 BB    H      91.2     1
+##  2 BB    H     105.      1
+##  3 BB    H     114.      1
+##  4 BB    H     136.      1
+##  5 BB    H     140.      1
+##  6 BB    H     152.      1
+##  7 BB    H     163.      1
+##  8 BBPI  H     116.      1
+##  9 BBWF  H      91.3     1
+## 10 BBWF  H      91.5     1
+## 11 BBWF  H     121.      1
+## 12 BBWF  H     154.      1
+## 13 BC    H     109.      1
+## 14 BC    H     116.      1
+## 15 BC    H     161.      1
+## 16 BKWF  H      99.4     1
+## 17 BLCK  H     158.      1
+## 18 OPAL  H     106.      1
+## 19 OPWF  H     146.      1
+## 20 WGRZ  H     109.      1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{type2=}\KeywordTok{summarise}\NormalTok{(type, }\DataTypeTok{birds=}\KeywordTok{sum}\NormalTok{(birds)) }\CommentTok{#Notice how the Speed column is gone, the number of each type of pigeon is reapportioned by only color and sex}
+\NormalTok{type2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 9 x 3
+## # Groups:   Color [9]
+##   Color Sex   birds
+##   <fct> <fct> <int>
+## 1 BB    H         7
+## 2 BBPI  H         1
+## 3 BBWF  H         4
+## 4 BC    H         3
+## 5 BKWF  H         1
+## 6 BLCK  H         1
+## 7 OPAL  H         1
+## 8 OPWF  H         1
+## 9 WGRZ  H         1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{type3=}\KeywordTok{summarise}\NormalTok{(type2, }\DataTypeTok{birds=}\KeywordTok{sum}\NormalTok{(birds))}
+\NormalTok{type3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 9 x 2
+##   Color birds
+##   <fct> <int>
+## 1 BB        7
+## 2 BBPI      1
+## 3 BBWF      4
+## 4 BC        3
+## 5 BKWF      1
+## 6 BLCK      1
+## 7 OPAL      1
+## 8 OPWF      1
+## 9 WGRZ      1
+\end{verbatim}
+
+\subsection{Calling Columns}\label{calling-columns}
+
+As you now know, one of the advantages of dplyr is that you can call
+columns directly instead of using `\$' but this comes with a caveat! Try
+this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Pos=}\DecValTok{5}
+\KeywordTok{select}\NormalTok{(coolpigeons, Pos)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 1
+##      Pos
+##    <int>
+##  1     3
+##  2    36
+##  3    67
+##  4    71
+##  5    87
+##  6   156
+##  7   172
+##  8   193
+##  9   229
+## 10   244
+## 11   245
+## 12   256
+## 13   277
+## 14   278
+## 15   292
+## 16   296
+## 17   334
+## 18   369
+## 19   387
+## 20   393
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Rat=}\DecValTok{1}
+\KeywordTok{select}\NormalTok{(coolpigeons, Rat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 1
+##      Pos
+##    <int>
+##  1     3
+##  2    36
+##  3    67
+##  4    71
+##  5    87
+##  6   156
+##  7   172
+##  8   193
+##  9   229
+## 10   244
+## 11   245
+## 12   256
+## 13   277
+## 14   278
+## 15   292
+## 16   296
+## 17   334
+## 18   369
+## 19   387
+## 20   393
+\end{verbatim}
+
+Normally, because the variable Pos was assigned a value of 5, the 5th
+column would be selected. However, this is not the case. Variables may
+not have the same name as columns, or they will not display correctly.
+Variables with different names will work as expected. If you were to
+input the column number instead of a variable, that would work too. This
+is only a problem if you're calling the column directly. For instance
+consider the following:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Gender=}\StringTok{ "Sex"}
+\KeywordTok{select}\NormalTok{(coolpigeons, }\KeywordTok{starts_with}\NormalTok{(Gender))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 1
+##    Sex  
+##    <fct>
+##  1 H    
+##  2 H    
+##  3 H    
+##  4 H    
+##  5 H    
+##  6 H    
+##  7 H    
+##  8 H    
+##  9 H    
+## 10 H    
+## 11 H    
+## 12 H    
+## 13 H    
+## 14 H    
+## 15 H    
+## 16 H    
+## 17 H    
+## 18 H    
+## 19 H    
+## 20 H
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Name=}\DecValTok{1}
+\KeywordTok{select}\NormalTok{(coolpigeons, Name, }\KeywordTok{identity}\NormalTok{(Name)) }\CommentTok{#An indentity() call tells R to overlook column names and inturpret the command as a variable. }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 2
+##    Name             Pos
+##    <fct>          <int>
+##  1 Perch Potato       3
+##  2 Lil Dat           36
+##  3 Bella             67
+##  4 "\"the Duck\""    71
+##  5 Alice             87
+##  6 Christie         156
+##  7 Gypsy            172
+##  8 BLACK NIGTH 9    193
+##  9 BATTLE BORN 27   229
+## 10 Pop's Pick       244
+## 11 Kingston         245
+## 12 Color Me Hot     256
+## 13 SEMPER FI 11     277
+## 14 Charlie          278
+## 15 Elle             292
+## 16 Edward           296
+## 17 Gage             334
+## 18 Jack Frost       369
+## 19 Canned Heat      387
+## 20 Rogue Brew       393
+\end{verbatim}
+
+\section{Appending Columns}\label{appending-columns}
+
+You can add columns using the mutate() and group\_by() function. These
+are different from the select() function because you input column vector
+values rather than column name/positions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mutate}\NormalTok{(}\KeywordTok{select}\NormalTok{(coolpigeons, Pos}\OperatorTok{:}\NormalTok{Name), }\StringTok{"beak_length"}\NormalTok{, }\DecValTok{5}\NormalTok{) }\CommentTok{#Vectors are recycled }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 5
+##      Pos Breeder               Name           `"beak_length"`   `5`
+##    <int> <fct>                 <fct>          <chr>           <dbl>
+##  1     3 Jerry Allensworth     Perch Potato   beak_length         5
+##  2    36 Equalizer Loft        Lil Dat        beak_length         5
+##  3    67 Charlie's Little Loft Bella          beak_length         5
+##  4    71 Jerry Allensworth     "\"the Duck\"" beak_length         5
+##  5    87 Jerry Allensworth     Alice          beak_length         5
+##  6   156 Milner-Mckinsey       Christie       beak_length         5
+##  7   172 King City             Gypsy          beak_length         5
+##  8   193 Tongol 11             BLACK NIGTH 9  beak_length         5
+##  9   229 Tongol 11             BATTLE BORN 27 beak_length         5
+## 10   244 Equalizer Loft        Pop's Pick     beak_length         5
+## 11   245 King City             Kingston       beak_length         5
+## 12   256 Jerry Allensworth     Color Me Hot   beak_length         5
+## 13   277 Tongol 11             SEMPER FI 11   beak_length         5
+## 14   278 Charlie's Little Loft Charlie        beak_length         5
+## 15   292 Milner-Mckinsey       Elle           beak_length         5
+## 16   296 Charlie's Little Loft Edward         beak_length         5
+## 17   334 King City             Gage           beak_length         5
+## 18   369 Hutchins/Milner       Jack Frost     beak_length         5
+## 19   387 Braden/Olivieri       Canned Heat    beak_length         5
+## 20   393 Braden/Olivieri       Rogue Brew     beak_length         5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{beak_length=}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(coolpigeons)}\OperatorTok{/}\DecValTok{2}\NormalTok{),}\DataTypeTok{each=}\DecValTok{2}\NormalTok{) }\CommentTok{#Create a vector to input into the dataset}
+\KeywordTok{mutate}\NormalTok{(}\KeywordTok{select}\NormalTok{(coolpigeons, Pos}\OperatorTok{:}\NormalTok{Name), beak_length)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 4
+##      Pos Breeder               Name           beak_length
+##    <int> <fct>                 <fct>                <int>
+##  1     3 Jerry Allensworth     Perch Potato             1
+##  2    36 Equalizer Loft        Lil Dat                  1
+##  3    67 Charlie's Little Loft Bella                    2
+##  4    71 Jerry Allensworth     "\"the Duck\""           2
+##  5    87 Jerry Allensworth     Alice                    3
+##  6   156 Milner-Mckinsey       Christie                 3
+##  7   172 King City             Gypsy                    4
+##  8   193 Tongol 11             BLACK NIGTH 9            4
+##  9   229 Tongol 11             BATTLE BORN 27           5
+## 10   244 Equalizer Loft        Pop's Pick               5
+## 11   245 King City             Kingston                 6
+## 12   256 Jerry Allensworth     Color Me Hot             6
+## 13   277 Tongol 11             SEMPER FI 11             7
+## 14   278 Charlie's Little Loft Charlie                  7
+## 15   292 Milner-Mckinsey       Elle                     8
+## 16   296 Charlie's Little Loft Edward                   8
+## 17   334 King City             Gage                     9
+## 18   369 Hutchins/Milner       Jack Frost               9
+## 19   387 Braden/Olivieri       Canned Heat             10
+## 20   393 Braden/Olivieri       Rogue Brew              10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mutate}\NormalTok{(}\KeywordTok{select}\NormalTok{(coolpigeons, Pos}\OperatorTok{:}\NormalTok{Name), }\DataTypeTok{beaks=}\NormalTok{ beak_length }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 4
+##      Pos Breeder               Name           beaks
+##    <int> <fct>                 <fct>          <dbl>
+##  1     3 Jerry Allensworth     Perch Potato       2
+##  2    36 Equalizer Loft        Lil Dat            2
+##  3    67 Charlie's Little Loft Bella              3
+##  4    71 Jerry Allensworth     "\"the Duck\""     3
+##  5    87 Jerry Allensworth     Alice              4
+##  6   156 Milner-Mckinsey       Christie           4
+##  7   172 King City             Gypsy              5
+##  8   193 Tongol 11             BLACK NIGTH 9      5
+##  9   229 Tongol 11             BATTLE BORN 27     6
+## 10   244 Equalizer Loft        Pop's Pick         6
+## 11   245 King City             Kingston           7
+## 12   256 Jerry Allensworth     Color Me Hot       7
+## 13   277 Tongol 11             SEMPER FI 11       8
+## 14   278 Charlie's Little Loft Charlie            8
+## 15   292 Milner-Mckinsey       Elle               9
+## 16   296 Charlie's Little Loft Edward             9
+## 17   334 King City             Gage              10
+## 18   369 Hutchins/Milner       Jack Frost        10
+## 19   387 Braden/Olivieri       Canned Heat       11
+## 20   393 Braden/Olivieri       Rogue Brew        11
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{group_by}\NormalTok{(}\KeywordTok{select}\NormalTok{(coolpigeons, Pos}\OperatorTok{:}\NormalTok{Name), }\StringTok{"beak_length"}\NormalTok{) }\CommentTok{#The group_by() function also recycles the character string }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 4
+## # Groups:   "beak_length" [1]
+##      Pos Breeder               Name           `"beak_length"`
+##    <int> <fct>                 <fct>          <chr>          
+##  1     3 Jerry Allensworth     Perch Potato   beak_length    
+##  2    36 Equalizer Loft        Lil Dat        beak_length    
+##  3    67 Charlie's Little Loft Bella          beak_length    
+##  4    71 Jerry Allensworth     "\"the Duck\"" beak_length    
+##  5    87 Jerry Allensworth     Alice          beak_length    
+##  6   156 Milner-Mckinsey       Christie       beak_length    
+##  7   172 King City             Gypsy          beak_length    
+##  8   193 Tongol 11             BLACK NIGTH 9  beak_length    
+##  9   229 Tongol 11             BATTLE BORN 27 beak_length    
+## 10   244 Equalizer Loft        Pop's Pick     beak_length    
+## 11   245 King City             Kingston       beak_length    
+## 12   256 Jerry Allensworth     Color Me Hot   beak_length    
+## 13   277 Tongol 11             SEMPER FI 11   beak_length    
+## 14   278 Charlie's Little Loft Charlie        beak_length    
+## 15   292 Milner-Mckinsey       Elle           beak_length    
+## 16   296 Charlie's Little Loft Edward         beak_length    
+## 17   334 King City             Gage           beak_length    
+## 18   369 Hutchins/Milner       Jack Frost     beak_length    
+## 19   387 Braden/Olivieri       Canned Heat    beak_length    
+## 20   393 Braden/Olivieri       Rogue Brew     beak_length
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{group_by}\NormalTok{(}\KeywordTok{select}\NormalTok{(coolpigeons, Pos}\OperatorTok{:}\NormalTok{Name), }\DataTypeTok{beaks=}\NormalTok{beak_length)}\CommentTok{#This is how you not only add a new column, but use it as a way to sort the original dataset}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 4
+## # Groups:   beaks [10]
+##      Pos Breeder               Name           beaks
+##    <int> <fct>                 <fct>          <int>
+##  1     3 Jerry Allensworth     Perch Potato       1
+##  2    36 Equalizer Loft        Lil Dat            1
+##  3    67 Charlie's Little Loft Bella              2
+##  4    71 Jerry Allensworth     "\"the Duck\""     2
+##  5    87 Jerry Allensworth     Alice              3
+##  6   156 Milner-Mckinsey       Christie           3
+##  7   172 King City             Gypsy              4
+##  8   193 Tongol 11             BLACK NIGTH 9      4
+##  9   229 Tongol 11             BATTLE BORN 27     5
+## 10   244 Equalizer Loft        Pop's Pick         5
+## 11   245 King City             Kingston           6
+## 12   256 Jerry Allensworth     Color Me Hot       6
+## 13   277 Tongol 11             SEMPER FI 11       7
+## 14   278 Charlie's Little Loft Charlie            7
+## 15   292 Milner-Mckinsey       Elle               8
+## 16   296 Charlie's Little Loft Edward             8
+## 17   334 King City             Gage               9
+## 18   369 Hutchins/Milner       Jack Frost         9
+## 19   387 Braden/Olivieri       Canned Heat       10
+## 20   393 Braden/Olivieri       Rogue Brew        10
+\end{verbatim}
+
+\section{Wrapping Commands}\label{wrapping-commands}
+
+Normally when you want to group columns, and use them to extrapolate
+results, you have to save the groups as new variables. This can get a
+little messy. If you don't want to name these intermediate steps, you
+can wrap the function calls inside each other.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{breeders =}\StringTok{ }\KeywordTok{group_by}\NormalTok{(coolpigeons, Breeder)}
+\NormalTok{breeders_and_speed =}\StringTok{ }\KeywordTok{select}\NormalTok{(breeders, Speed)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Adding missing grouping variables: `Breeder`
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{summary =}\StringTok{ }\KeywordTok{summarise}\NormalTok{(breeders_and_speed,}
+      \DataTypeTok{avg_speed =} \KeywordTok{mean}\NormalTok{(Speed, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+      \DataTypeTok{number_of_birds =} \KeywordTok{n}\NormalTok{())}
+\NormalTok{filtered_speeds =}\StringTok{ }\KeywordTok{filter}\NormalTok{(summary, avg_speed}\OperatorTok{>}\DecValTok{100}\NormalTok{)}
+\NormalTok{filtered_speeds}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 3
+##   Breeder               avg_speed number_of_birds
+##   <fct>                     <dbl>           <int>
+## 1 Charlie's Little Loft      124.               3
+## 2 Equalizer Loft             138.               2
+## 3 Jerry Allensworth          146.               4
+## 4 King City                  118.               3
+## 5 Milner-Mckinsey            126.               2
+## 6 Tongol 11                  122.               3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#This is how you would do it, if you wanted to name every variable.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{filter}\NormalTok{(}
+  \KeywordTok{summarise}\NormalTok{(}
+    \KeywordTok{select}\NormalTok{(}\KeywordTok{group_by}\NormalTok{(coolpigeons, Breeder), }
+\NormalTok{           Speed),}
+    \DataTypeTok{avg_speed=} \KeywordTok{mean}\NormalTok{(Speed, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+    \DataTypeTok{number_of_birds=}\KeywordTok{n}\NormalTok{()}
+\NormalTok{    ),}
+\NormalTok{  avg_speed}\OperatorTok{>}\DecValTok{100}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Adding missing grouping variables: `Breeder`
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 6 x 3
+##   Breeder               avg_speed number_of_birds
+##   <fct>                     <dbl>           <int>
+## 1 Charlie's Little Loft      124.               3
+## 2 Equalizer Loft             138.               2
+## 3 Jerry Allensworth          146.               4
+## 4 King City                  118.               3
+## 5 Milner-Mckinsey            126.               2
+## 6 Tongol 11                  122.               3
+\end{verbatim}
+
+The two outputs are exactly the same, but here we didn't have to name
+each variable. One thing to note is that the operations are written
+inside out, which is kind of confusing. To fix this, dplyr borrows the
+\%\textgreater{}\% operator from the magrittr package. This is a pipe
+operator which assigns the lefthand side object as the first agrument of
+the next command.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{coolpigeons }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Breeder) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(Speed) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}
+    \DataTypeTok{avg_speed =} \KeywordTok{mean}\NormalTok{(Speed, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+    \DataTypeTok{number_of_birds=} \KeywordTok{n}\NormalTok{()}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(avg_speed}\OperatorTok{>}\DecValTok{100}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Adding missing grouping variables: `Breeder`
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 6 x 3
+##   Breeder               avg_speed number_of_birds
+##   <fct>                     <dbl>           <int>
+## 1 Charlie's Little Loft      124.               3
+## 2 Equalizer Loft             138.               2
+## 3 Jerry Allensworth          146.               4
+## 4 King City                  118.               3
+## 5 Milner-Mckinsey            126.               2
+## 6 Tongol 11                  122.               3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Most logical way to write code, left to right and top to bottom.}
+\end{Highlighting}
+\end{Shaded}
+
+
+\end{document}
