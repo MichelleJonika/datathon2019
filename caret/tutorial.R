@@ -360,7 +360,9 @@ model_svmRadial
 
 ##  Run resamples() to compare the models
 # Compare model performances using resample()
-models_compare <- resamples(list(ADABOOST=model_adaboost, RF=model_rf, XGBDART=model_xgbDART, MARS=model_mars3, SVM=model_svmRadial))
+models_compare <- resamples(list(ADABOOST=model_adaboost, 
+                                 RF=model_rf, XGBDART=model_xgbDART, 
+                                 MARS=model_mars3, SVM=model_svmRadial))
 
 # Summary of the models performances
 summary(models_compare)
