@@ -1,0 +1,195 @@
+---
+title: "dplyr Package Review"
+authors: "Madison Strain, Joel Acosta, and Anurag Satapathy" 
+output:
+  word_document: default
+  html_document: default
+---
+
+##Introduction
+
+The dplyr package was adapted from the plyr package September 28, 2017 and is used for manipulation of data frames. Some advantages of the package are:
+
+* Uses simple verb functions
+* Quicker computations- uses backends
+* Uses same interface for data tables (dtplyr) and databases (dbplyr)
+* Don't have to constantly call dataset
+
+```{r setup, include=FALSE}
+#chooseCRANmirror(graphics = FALSE, ind=1)
+knitr::opts_chunk$set(echo = TRUE)
+#install.packages("dplyr")
+```
+
+The programming examples used for our presentation were modeled after a dplyr demonstration found at: https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html
+
+##Simple Verb Commands
+
+To investigate dplyr's command functions, a dataset was obtained from the American Racing Pigeon Union. Pigeon carriers were once considered a highly sophisticated means of communication and some pigeons were even used as spies during WW2. Today, pigeon racing is still a hobby for some.
+
+Some things to note about these commands:
+
+* First argument is the data frame
+* Subsequent arguments explain what to do with the original data frame
+* Results in new data frame
+* You can call columns directly without using '$'
+
+
+```{r}
+rm(list=ls())
+library(dplyr)
+pigeons = read.csv('Pigeon_Racing.csv', na.strings = c("","NA"))
+coolpigeons=subset(pigeons, !is.na(Name))
+coolpigeons=as_tibble(coolpigeons) #The dataset type dplyr works best with
+head(coolpigeons)
+class(coolpigeons)
+```
+
+
+```{r}
+arrange(coolpigeons, Color, Speed) 
+#The data frame is reordered by color in alphabetic order, if two pigeons have the same color, their order is determined by speed in ascending order. Additional arguments may be added and are used to break ties of preceding columns.
+arrange(coolpigeons, Color, desc(Speed))
+#Now the speeds are in descending order
+```
+
+```{r}
+select(coolpigeons, Pos, Breeder)
+#Used to subset data by columns
+select(coolpigeons, Pos:Name)
+#Inclusive selection of columns Pos to Name
+select(coolpigeons, -(Pos:Name))
+select(coolpigeons, starts_with("P"))
+select(coolpigeons, starts_with("p",ignore.case=F))
+#Selects all columns that start with 'P'. Could also use ends_with(), contains(), matches(), num_range()
+```
+
+```{r}
+mutate(coolpigeons, speed_squared= Speed^2)
+#Lets you add a column
+transmute(coolpigeons, speed_squared= Speed^2)
+#Only keep the new column, instead of adding it
+```
+
+```{r}
+summarise(coolpigeons, avg_speed= mean(Speed, na.rm = TRUE))
+#You use the summarise() function with aggregate functions which take vectors and return single values. Some examples in R are: min(), max(), sum(), sd(), median(), IQR(). We will explore other examples that the dplyr package provides later.
+
+sample_n(coolpigeons, 5, replace= TRUE)
+sample_frac(coolpigeons, 0.1, weight= Speed)
+#You can take a random sample of the rows by number (n) or fraction (frac) of total entries. replace = TRUE performs a bootstrap sample, can also apply a weight.
+```
+
+
+##Grouped Operations 
+
+The group_by() function separates datasets into specified groups of rows. The dplyr verb commands can be used on these groups. Here's how each verb function is affected by grouping:
+
+* select() - The variable used to group is also returned
+* arrange() - Sorts the variable selected by group first, only if .by_group=TRUE is added
+* sample_(n/frac)() - Pulls specified sample from each group
+* summarise() - Does computation by group
+
+In this example, we will group the pigeons by their breeders, then use the summarise() function to extrapolate data specific to each breeder. We will also explore the dplyr specific aggregate functions.
+
+```{r}
+breeders= group_by(coolpigeons, Breeder)
+summarise(breeders, 
+          count= n(), #Gives the number of pigeons for each breeder
+          avg_speed= mean(Speed, na.rm = TRUE),
+          diff_color= n_distinct(Color), #Gives the number of different color pigeons
+          first= first(Name), #Gives the name of the first/last pigeon from each breeder
+          last= last(Name),
+          nth= nth(Name, 2)) #Gives the name of the nth (2nd) pigeon from each breeder
+```
+
+```{r}
+characteristics=group_by(coolpigeons, Color, Sex, Speed) #Here the pigeons are grouped by multiple variables
+type=summarise(characteristics, birds= n()) #This gives the number of each type of pigeon
+type
+type2=summarise(type, birds=sum(birds)) #Notice how the Speed column is gone, the number of each type of pigeon is reapportioned by only color and sex
+type2
+type3=summarise(type2, birds=sum(birds))
+type3
+```
+
+
+##Calling Columns
+
+As you now know, one of the advantages of dplyr is that you can call columns directly instead of using '$' but this comes with a caveat! Try this:
+
+```{r}
+Pos=5
+select(coolpigeons, Pos)
+Rat=1
+select(coolpigeons, Rat)
+```
+
+Normally, because the variable Pos was assigned a value of 5, the 5th column would be selected. However, this is not the case. Variables may not have the same name as columns, or they will not display correctly. Variables with different names will work as expected. If you were to input the column number instead of a variable, that would work too. This is only a problem if you're calling the column directly. For instance consider the following:
+
+```{r}
+Gender= "Sex"
+select(coolpigeons, starts_with(Gender))
+Name=1
+select(coolpigeons, Name, identity(Name)) #An indentity() call tells R to overlook column names and inturpret the command as a variable. 
+```
+
+
+#Appending Columns
+
+You can add columns using the mutate() and group_by() function. These are different from the select() function because you input column vector values rather than column name/positions. 
+
+```{r}
+mutate(select(coolpigeons, Pos:Name), "beak_length", 5) #Vectors are recycled 
+beak_length=rep(1:(nrow(coolpigeons)/2),each=2) #Create a vector to input into the dataset
+mutate(select(coolpigeons, Pos:Name), beak_length)
+mutate(select(coolpigeons, Pos:Name), beaks= beak_length + 1)
+
+group_by(select(coolpigeons, Pos:Name), "beak_length") #The group_by() function also recycles the character string 
+group_by(select(coolpigeons, Pos:Name), beaks=beak_length)#This is how you not only add a new column, but use it as a way to sort the original dataset
+```
+
+
+#Wrapping Commands
+
+Normally when you want to group columns, and use them to extrapolate results, you have to save the groups as new variables. This can get a little messy. If you don't want to name these intermediate steps, you can wrap the function calls inside each other.
+
+```{r}
+breeders = group_by(coolpigeons, Breeder)
+breeders_and_speed = select(breeders, Speed)
+summary = summarise(breeders_and_speed,
+      avg_speed = mean(Speed, na.rm = TRUE),
+      number_of_birds = n())
+filtered_speeds = filter(summary, avg_speed>100)
+filtered_speeds
+#This is how you would do it, if you wanted to name every variable.
+```
+
+```{r}
+filter(
+  summarise(
+    select(group_by(coolpigeons, Breeder), 
+           Speed),
+    avg_speed= mean(Speed, na.rm = TRUE),
+    number_of_birds=n()
+    ),
+  avg_speed>100)
+
+
+```
+The two outputs are exactly the same, but here we didn't have to name each variable. One thing to note is that the operations are written inside out, which is kind of confusing. To fix this, dplyr borrows the %>% operator from the magrittr package. This is a pipe operator which assigns the lefthand side object as the first agrument of the next command.
+```{r}
+coolpigeons %>%
+  group_by(Breeder) %>%
+  select(Speed) %>%
+  summarise(
+    avg_speed = mean(Speed, na.rm = TRUE),
+    number_of_birds= n()
+  ) %>%
+  filter(avg_speed>100)
+
+#Most logical way to write code, left to right and top to bottom.
+```
+
+ 
+ 
