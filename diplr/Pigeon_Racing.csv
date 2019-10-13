@@ -1,0 +1,401 @@
+Pos,Breeder,Name,Color,Sex,Speed
+1,Texas Outlaws,,BCWF,H,172.155
+2,Junior Juanich,,SIWF,H,163.569
+3,Jerry Allensworth,Perch Potato,BB,H,163.442
+4,Alias-Alias,,BBSP,H,163.392
+5,Greg Glazier,,BC,H,163.366
+6,Dal-Tex R P C,,BC,H,163.19
+7,Greg Glazier,,BBWF,C,163.139
+8,N C Syndicate,,BC,H,163.038
+9,Baldwin & Tilson,,BB,H,162.913
+10,Texas Outlaws,,BC,H,162.888
+10,Redtex,,RED,H,162.888
+12,Terry Montgomery,,BC,H,162.762
+13,Woodsend/Perry,,RC,H,162.687
+14,Crestview Loft,,BBSP,H,162.662
+14,Goshentown Lofts,,BB,H,162.662
+16,Flyhome Loft,,BB,H,162.587
+17,Alias-Alias,,BBSP,H,162.562
+18,Skip's Janssens,,BCWF,H,162.537
+18,Bud & Orie Loft,,BLK,H,162.537
+20,Milner-Mckinsey,,BBWF,C,162.437
+21,Shawnie & Lenny Loft,,BC,H,162.262
+22,Nanez Family Lofts,,BBWF,H,162.212
+23,Dal-Tex R P C,,BC,H,162.187
+24,Jb & D,,BB,H,162.063
+25,Silver Dollar Loft,,BC,H,162.038
+26,Protege Loft,,BC,H,161.988
+27,Mike Belus,,BBWF,H,161.914
+28,Sierra Ranch Classic,,BBWF,H,161.864
+29,A P C Loft,,GRZL,H,161.839
+30,Churn Creek Loft,,BB,H,161.765
+31,Sandstrom Brothers Loft,,BBPD,H,161.591
+32,Alias-Alias,,BB,H,161.567
+33,Silver Dollar Loft,,BC,H,161.394
+33,Flying D Loft 2,,DC,H,161.394
+35,Clear Springs Loft,,BB,H,161.32
+36,Equalizer Loft,Lil Dat,BC,H,161.221
+37,Mike Belus,,BBWF,H,161.148
+38,Clear Springs Loft,,BB,H,161.049
+39,Stenman Loft,,BC,H,161
+40,Skip's Janssens,,BB,H,160.78
+41,Crowley's Ridge Loft,,BB,H,160.755
+42,Dave Harrett,,BC,H,160.731
+43,Dave Dudley,,BC,H,160.682
+44,Dave Dudley,,BC,H,160.657
+45,Mc Laughlin Lofts,,BC,H,160.633
+46,Little Reata Loft,,BCWF,H,160.584
+47,Skip's Janssens,,BBWF,H,160.462
+48,Emerson/Krass,,BC,H,160.364
+49,Non Pareil Loft,,BB,H,160.291
+50,Andy Skwiat,,DCWF,H,160.048
+51,Redtex,,RED,H,159.806
+52,American Lofts,,WGRZ,H,159.734
+53,Woodsend/Perry,,RC,H,159.637
+54,Alonso Loft,,BB,H,159.613
+55,Captain Chuck,,RCSP,H,159.444
+56,Shang N Dennis Yoh,,BBSP,H,159.42
+57,Crestview Loft,,BCWF,H,159.276
+58,Little Reata Loft,,BC,H,159.228
+59,J & M Partridge Loft,,BC,H,159.156
+60,Shawnie & Lenny Loft,,BC,H,159.108
+61,Jb & D,,BB,H,159.036
+62,B D P Loft,,RC,H,158.773
+63,Crowley's Ridge Loft,,BC,H,158.559
+64,A P C Loft,,BBWF,H,158.511
+65,T C R Loft,,BB,H,157.989
+66,Family Loft,,BB,H,157.683
+67,Charlie's Little Loft,Bella,BLCK,H,157.541
+68,Oscar/Ralph,,BB,H,157.424
+69,Junior Juanich,,SILV,H,157.401
+70,J & M Partridge Loft,,BB,H,155.592
+71,Jerry Allensworth,"""the Duck""",BBWF,H,153.869
+72,Flying D Loft 2,,BB,H,153.801
+72,Alias-Alias,,BB,H,153.801
+74,Jb & D,,BBPI,H,153.132
+75,The Bailey Team,,BC,H,152.778
+76,Churn Creek Loft,,BB,H,152.711
+77,Jb & D,,WHGR,H,152.513
+78,Goshentown Lofts,,BB,H,152.425
+79,Jb & D,,BB,H,152.315
+80,Bud & Orie Loft,,BLK,H,152.205
+80,Kwan Loft,,GRIZ,H,152.205
+82,Family Loft,,BB,H,152.161
+83,Andy Skwiat,,BBWF,H,152.052
+84,Protege Loft,,BC,H,151.921
+85,Ganus Family Loft,,BBWF,H,151.877
+86,Greg Glazier,,BB,H,151.833
+87,Jerry Allensworth,Alice,BB,H,151.79
+88,4-Birds,,BB,H,151.768
+89,Churn Creek Loft,,BBPI,H,151.746
+90,Greek Connection,,BB,H,151.702
+91,American Lofts,,BBWF,H,151.659
+91,Turk Loft,,BC,H,151.659
+93,Sierra Ranch Classic,,BB,H,151.615
+94,Leyba's Loft,,BBWF,H,151.572
+95,Lonestar Loft,,BC,H,151.506
+95,Leyba's Loft,,BB,H,151.506
+97,4-Birds,,BB,H,151.485
+98,Bynum Family Lofts,,BB,H,151.463
+99,Sierra Ranch Classic,,BB,H,151.398
+100,Terry Montgomery,,BC,H,151.311
+101,Woodsend/Perry,,RC,H,151.138
+101,Lonestar Loft,,BC,H,151.138
+103,The Brand Syndicate,,BB,H,151.095
+103,J & M Partridge Loft,,BC,H,151.095
+105,A P C Loft,,RED,H,151.008
+106,Kokomo Loft,,BC,H,150.857
+107,Jb & D,,BLK,H,150.814
+108,Jb & D,,BB,H,150.793
+109,Dave Harrett,,BC,H,150.685
+110,Milner-Mckinsey,,BB,H,150.535
+111,Turk Loft,,BC,H,150.449
+111,Sierra Ranch Classic,,BB,H,150.449
+113,Redtex,,RC,H,150.385
+114,Redtex,,RED,H,150.342
+115,Loizzi/Sikora,,BB,H,150.278
+116,Sandstrom Brothers Loft,,DC,H,150.235
+117,Rayce Loft,,BC,H,150.171
+118,Kwan Loft,,BB,H,150.128
+119,Andy Skwiat,,BC,H,150.021
+120,A P C Loft,,BB,H,149.851
+121,Family Loft,,BB,H,149.83
+121,A P C Loft,,BB,H,149.83
+123,Jb & D,,BB,H,149.787
+124,Sandstrom Brothers Loft,,BBPD,H,149.66
+124,Bionic Loft,,BC,H,149.66
+126,Alias-Alias,,BBWF,H,149.639
+127,Iv Aces Loft,,BB,H,149.554
+128,Jb & D,,BC,H,149.49
+129,Little Reata Loft,,BB,H,149.427
+130,Junior Juanich,,BC,H,149.385
+131,Family Loft,,BBPD,H,149.342
+131,Rayce Loft,,BB,H,149.342
+133,Fisher Family Loft,,BC,H,149.321
+134,Rayce Loft,,BC,H,149.3
+135,Stenman Loft,,BC,H,149.279
+136,Shawnie & Lenny Loft,,DC,H,149.174
+137,Redtex,,SIL,H,149.131
+138,Redtex,,BC,H,149.068
+139,The Brand Syndicate,,BC,H,148.774
+140,Redtex,,RED,H,148.67
+141,Credeur Family Loft,,BC,H,148.502
+142,Kiko Arana,,BBWF,H,148.398
+142,Junior Juanich,,BC,H,148.398
+144,Nanez Family Lofts,,BB,H,147.941
+144,Jb & D,,BB,H,147.941
+146,Woodsend/Perry,,RC,H,147.899
+147,Non Pareil Loft,,BB,H,147.527
+148,Loizzi/Sikora,,BC,H,147.383
+149,Rick Barker,,BB,H,147.363
+150,Woodsend/Perry,,RC,H,147.301
+151,Fisher Family Loft,,SILV,H,147.137
+152,Debbie Ganus,,BC,H,146.83
+153,Lonestar Loft,,BB,H,146.687
+154,Family Loft,,BB,C,146.585
+155,Ganus Family Loft,,BB,H,146.504
+156,Milner-Mckinsey,Christie,OPWF,H,146.078
+157,Shang N Dennis Yoh,,BB,H,146.018
+158,Greek Connection,,BB,H,145.234
+159,Lonestar Loft,,BC,H,144.697
+160,Crestview Loft,,BB,H,144.42
+161,Stenman Loft,,DC,H,144.4
+162,Credeur Family Loft,,BB,H,144.105
+163,Debbie Ganus,,BC,H,143.869
+164,Rayce Loft,,BBWF,H,143.791
+165,Redtex,,RC,H,143.732
+166,Family Loft,,BB,C,143.031
+167,Fisher Family Loft,,BB,H,141.384
+168,The Bailey Team,,BC,H,141.063
+169,Junior Juanich,,BC,H,140.744
+169,P J Loft,,BC,H,140.744
+171,Junior Juanich,,PENC,H,140.388
+172,King City,Gypsy,BB,H,139.775
+173,Mc Laughlin Lofts,,BB,H,139.609
+174,Jb & D,,BC,H,139.535
+175,Dave Dudley,,BB,H,139.516
+176,Andy Skwiat,,DCWF,H,139.351
+177,Skip's Janssens,,BB,H,139.241
+178,Centmeyer Loft,,BB,H,139.002
+179,Loizzi/Sikora,,BB,H,138.238
+180,Emerson/Krass,,BBWF,H,138.129
+181,Sandstrom Brothers Loft,,BCWF,H,138.021
+182,Redtex,,RC,H,137.877
+183,Hi-Cal Connection,,BBWF,H,137.608
+183,N C Syndicate,,BB,H,137.608
+185,J & M Partridge Loft,,BC,H,137.59
+186,Fisher Family Loft,,BC,H,137.536
+187,Stenman Loft,,BC,H,137.268
+188,The Bailey Team,,BB,H,137.107
+189,Baldwin & Tilson,,BB,H,136.929
+190,A P C Loft,,BB,H,136.628
+191,Stelling Loft,,BB,H,136.593
+192,Bynum Family Lofts,,BB,H,136.047
+193,Tongol 11,BLACK NIGTH 9,BB,H,135.733
+194,Captain Chuck,,BC,H,135.663
+195,Andy Skwiat,,BBWF,H,135.402
+196,Milner-Mckinsey,,BB,H,134.935
+197,Loizzi/Sikora,,BC,H,134.557
+198,The Brand Syndicate,,BB,H,134.249
+199,Rick Barker,,BB,H,132.997
+200,Dunn Loft,,BB,H,131.753
+201,Milner-Mckinsey,,BB,H,131.572
+202,T C R Loft,,BB,H,131.148
+203,American Lofts,,OPAL,H,131.115
+204,The Brand Syndicate,,BC,H,131.099
+205,Kwan Loft,,BB,H,130.774
+206,Texas Outlaws,,BCWF,H,130.564
+207,A P C Loft,,BC,H,130.419
+208,Stenman Loft,,BB,H,129.841
+209,Kiko Arana,,BB,H,129.618
+210,Dave Harrett,,BB,H,129.586
+211,Kwan Loft,,BC,H,129.428
+212,Bynum Family Lofts,,BB,H,129.333
+213,Ganus Family Loft,,BC,H,128.922
+214,Andy Skwiat,,DCWF,H,128.42
+215,Centmeyer Loft,,BBWF,H,126.558
+216,Dal-Tex R P C,,BB,H,126.467
+217,The Brand Syndicate,,BBPI,H,125.55
+218,Debbie Ganus,,BC,H,125.059
+219,7-11 Syndicate,,BBWF,H,123.393
+220,Drama Queen Loft,,BB,H,122.265
+221,Family Loft,,BBWF,C,122.166
+222,Equalizer Loft,,BC,H,122.024
+223,Mc Laughlin Lofts,,BB,H,121.94
+224,Hutchins/Milner,,BB,H,121.673
+225,Jb & D,,BB,H,121.268
+226,Andy Skwiat,,DCWF,H,121.226
+227,B D P Loft,,BC,H,120.99
+227,Family Loft,,BB,H,120.99
+229,Tongol 11,BATTLE BORN 27,BBWF,H,120.562
+230,Andy Skwiat,,BB,H,120.397
+231,A P C Loft,,BC,H,119.973
+232,Hi-Cal Connection,,BB,H,119.877
+233,Family Loft,,BB,H,119.796
+234,Alias-Alias,,BB,H,119.782
+235,Shang N Dennis Yoh,,BBWF,H,119.646
+236,Rick Barker,,BB,H,119.579
+237,B D P Loft,,RC,H,119.525
+238,Flying D Loft 2,,DC,H,119.444
+239,Debbie Ganus,,BBSP,H,118.187
+240,Nanez Family Lofts,,BC,H,116.814
+241,Little Reata Loft,,BBWF,H,116.518
+242,Milner-Mckinsey,,BB,H,116.325
+243,Stenman Loft,,BC,H,115.828
+244,Equalizer Loft,Pop's Pick,BC,H,115.688
+245,King City,Kingston,BBPI,H,115.549
+246,Miller Loft 2,,BB,H,115.334
+247,Crestview Loft,,BC,H,115.183
+248,A P C Loft,,BB,H,114.895
+249,Alonso Loft,,RED,H,114.783
+250,T C R Loft,,BC,H,114.621
+251,Nanez Family Lofts,,BB,H,114.596
+252,Woodsend/Perry,,SILV,H,114.571
+253,Mr. Dovely,,WHT,H,114.472
+254,Greek Connection,,BB,H,114.286
+255,Debbie Ganus,,BB,H,114.236
+256,Jerry Allensworth,Color Me Hot,BB,H,114.039
+257,Ganus Family Loft,,BC,H,113.744
+258,Emerson/Krass,,BB,H,113.561
+259,Stenman Loft,,BB,H,113.208
+260,Sierra Ranch Classic,,BB,H,113.135
+261,Skip's Janssens,,BB,H,112.76
+262,Cypress Hills Farm,,BC,H,112.568
+263,N C Syndicate,,BB,H,110.808
+264,Non Pareil Loft,,BB,H,110.195
+265,Emerson/Krass,,BC,H,110
+266,Woodsend/Perry,,BCWF,H,109.806
+267,Sandstrom Brothers Loft,,DC,H,109.669
+268,Woodsend/Perry,,BB,H,109.532
+269,Stelling Loft,,BB,H,109.453
+270,Kokomo Loft,,BC,H,109.441
+271,Dave Harrett,,BB,H,109.43
+272,Rick Barker,,BB,H,109.204
+273,Alonso Loft,,BBWF,H,109.125
+274,Equalizer Loft,,BC,H,109.057
+275,Texas Outlaws,,BC,H,108.922
+276,Bionic Loft,,BC,H,108.866
+277,Tongol 11,SEMPER FI 11,WGRZ,H,108.799
+278,Charlie's Little Loft,Charlie,BC,H,108.776
+279,The Bailey Team,,BB,H,108.53
+280,Stenman Loft,,BC,H,108.497
+281,Hi-Cal Connection,,BB,H,108.13
+282,Redtex,,RC,H,108.02
+283,Fisher Family Loft,,SILV,H,107.898
+284,The Bailey Team,,DC,C,107.865
+285,Drama Queen Loft,,BC,H,107.854
+286,N C Syndicate,,BB,H,107.59
+287,Alias-Alias,,BB,H,107.579
+288,Shawnie & Lenny Loft,,BC,H,106.807
+289,Dave Harrett,,BB,H,106.43
+290,Protege Loft,,BLK,H,106.152
+291,American Lofts,,BBWF,H,105.854
+292,Milner-Mckinsey,Elle,OPAL,H,105.632
+293,Jerry Johnson,,BC,H,105.379
+293,A P C Loft,,BB,H,105.379
+295,Ganus Family Loft,,BBWF,H,105.305
+296,Charlie's Little Loft,Edward,BB,H,105.127
+297,Bynum Family Lofts,,BB,H,104.918
+298,A P C Loft,,BB,H,104.689
+299,Shang N Dennis Yoh,,BCSP,H,104.503
+300,Family Loft,,BB,C,104.451
+301,Alias-Alias,,BB,H,104.358
+302,Ganus Family Loft,,BB,C,104.327
+303,Drama Queen Loft,,BBSP,H,104.307
+304,Jerry Johnson,,RCWF,H,104.265
+305,N C Syndicate,,BB,H,104.163
+306,T C R Loft,,BC,H,103.957
+307,N C Syndicate,,DC,H,103.804
+308,Protege Loft,,BB,H,103.672
+309,Hi-Cal Connection,,BB,H,103.347
+310,Alias-Alias,,BB,H,103.145
+311,Kiko Arana,,BBPI,H,102.934
+312,Woodsend/Perry,,BB,H,102.924
+313,Rick Barker,,BB,H,102.824
+314,Mc Laughlin Lofts,,BB,H,101.344
+315,Stenman Loft,,BC,H,101.266
+316,Greek Connection,,BB,H,101.043
+317,P J Loft,,BB,H,100.975
+318,Alias-Alias,,BB,H,100.898
+319,Cypress Hills Farm,,BBPI,H,100.754
+320,Leyba's Loft,,BB,H,100.725
+321,7-11 Syndicate,,BB,H,100.658
+322,Clear Springs Loft,,BB,H,100.629
+323,A P C Loft,,BC,H,100.552
+324,Family Loft,,BBWF,H,100.39
+325,Redtex,,RC,H,100.38
+326,T C R Loft,,BC,H,100.313
+327,Twin200,,SIL,H,100.304
+328,Kiko Arana,,BB,H,100.19
+329,Dave Harrett,,BB,H,100.18
+330,Emerson/Krass,,BB,H,99.991
+331,Little Reata Loft,,BC,H,99.905
+332,Debbie Ganus,,BBWF,H,99.688
+333,Baysideboys,,GRIZ,H,99.472
+334,King City,Gage,BKWF,H,99.426
+335,Bynum Family Lofts,,BB,H,99.285
+336,4-Birds,,BB,H,99.192
+337,Non Pareil Loft,,BB,H,98.507
+338,The Bailey Team,,BB,H,98.48
+339,Family Loft,,BB,C,98.324
+340,Andy Skwiat,,BB,H,98.315
+341,Iv Aces Loft,,BB,H,98.242
+342,Loizzi/Sikora,,BB,H,98.169
+343,Greg Glazier,,PENC,H,98.16
+344,Redtex,,RC,H,98.068
+345,Baldwin & Tilson,,BB,H,97.932
+346,4-Birds,,BB,H,97.923
+347,Alias-Alias,,BB,H,97.887
+348,Stenman Loft,,DC,H,97.841
+349,Mayberry Classic,,BB,H,97.751
+350,Little Reata Loft,,BBWF,H,97.444
+351,Shang N Dennis Yoh,,BBWF,H,97.032
+352,Andy Skwiat,,BB,H,95.54
+353,Flyhome Loft,,BB,H,92.697
+354,P J Loft,,BB,H,91.778
+355,Tony Family Lofts,,BC,H,91.73
+356,Baldwin & Tilson,,BB,H,91.675
+357,Baysideboys,,DC,H,91.651
+358,Greek Connection,,BB,H,91.643
+358,Jerdee,,BBWF,H,91.643
+360,Goshentown Lofts,,BB,H,91.619
+361,E & E Loft,,BB,H,91.611
+362,The Bailey Team,,BCWF,H,91.603
+363,Jerdee,,BB,H,91.595
+363,Jerdee,,BB,H,91.595
+365,E & E Loft,,BB,H,91.579
+365,Captain Chuck,,BB,H,91.579
+367,Jb & D,,BC,H,91.54
+368,Milner-Mckinsey,,BB,H,91.532
+369,Jerdee,,BB,H,91.508
+369,Hutchins/Milner,Jack Frost,BBWF,H,91.508
+371,Baldwin & Tilson,,BB,H,91.5
+372,Captain Chuck,,BB,H,91.484
+373,Stelling Loft,,BCH,H,91.476
+374,Captain Chuck,,BLK,H,91.452
+375,Sandstrom Brothers Loft,,BBWF,H,91.429
+376,Sandstrom Brothers Loft,,BB,H,91.421
+377,Jerdee,,BB,H,91.413
+377,Captain Chuck,,BLK,H,91.413
+379,Captain Chuck,,RC,H,91.389
+380,Hutchins/Milner,,BB,H,91.381
+381,Hutchins/Milner,,BB,H,91.365
+381,Captain Chuck,,SIL,H,91.365
+383,Baysideboys,,BC,H,91.349
+383,Tony Family Lofts,,BC,H,91.349
+385,Captain Chuck,,RC,H,91.334
+386,Tony Family Lofts,,BCSP,H,91.326
+387,Stelling Loft,,BB,H,91.302
+387,Braden/Olivieri,Canned Heat,BBWF,H,91.302
+389,Baldwin & Tilson,,BB,H,91.294
+390,E & E Loft,,BC,H,91.263
+391,Jerdee,,BB,H,91.239
+392,Baldwin & Tilson,,BBPI,H,91.2
+393,Braden/Olivieri,Rogue Brew,BB,H,91.176
+394,Goshentown Lofts,,BB,H,90.987
+395,Captain Chuck,,RC,H,90.948
+396,Hutchins/Milner,,BB,H,90.901
+397,Twin200,,SIL,H,87.817
+398,Mayberry Classic,,BBSP,H,83.929
+399,Sierra Ranch Classic,,BC,H,78.286
+400,Hi-Cal Connection,,BB,H,76.677
