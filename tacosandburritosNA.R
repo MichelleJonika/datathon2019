@@ -206,3 +206,9 @@ ingredients <- data.frame(meatvec, cheesevec, seavec, rice, vegevec, saucevec ,#
                           chileverde ,
                           guac ,
                           kimchi)
+
+idx <- c()
+for(i in 1:nrow(tacos.trimmed)){
+  if(sum(as.numeric(traits.df[i,])) == 0){idx <- c(idx,i)}
+}
+
