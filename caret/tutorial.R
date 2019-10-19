@@ -370,8 +370,8 @@ summary(models_compare)
 # Let's plot the resamples summary output.
 
 # Draw box plots to compare models
-# scales <- list(x=list(relation="free"), y=list(relation="free"))
-# bwplot(models_compare, scales=scales)
+scales <- list(x=list(relation="free"), y=list(relation="free"))
+bwplot(models_compare, scales=scales)
 # 
 # In the above output you can see clearly how the algorithms performed in terms of ROC, 
 # Specificity and Sensitivity and how consistent has it been.
@@ -398,6 +398,7 @@ trainControl <- trainControl(method="repeatedcv",
                              repeats=3,
                              savePredictions=TRUE, 
                              classProbs=TRUE)
+
 
 algorithmList <- c('rf', 'adaboost', 'earth', 'xgbDART', 'svmRadial')
 
