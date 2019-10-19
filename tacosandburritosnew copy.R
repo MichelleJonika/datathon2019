@@ -1,8 +1,7 @@
-data <- read.csv('just tacos and burritos.csv')
+data <- read.csv('goldmansachs/just tacos and burritos.csv')
 x <- head(data)
 x
 data <- data[,1:26]
-# data <- cbind(data, 'beef')
 
 beefcol <- vector(length = nrow(data))
 for(i in 1:nrow(data)){
@@ -16,13 +15,10 @@ colnames(beefcol) <- c('Beef')
 
 all.desc <- ''
 for(i in 1:nrow(data)){
-  all.desc <- paste(all.desc, as.character(data$menus.description[i]), sep = ',')
+  all.desc <- paste(all.desc, as.character(data$menus.description[i]))
 }
 
 diff.ing <- strsplit(all.desc, split = ',')
-diff.ing <- diff.ing[[1]]
-diff.ing <- unique(diff.ing)
-
 
 
 tacovec <- vector(length = nrow(data))
@@ -36,11 +32,12 @@ for(i in 1:nrow(data)){
   }else{burritovec[i] <- 0}
 }
 
+## compare burrito/taco vector with the menu name to make sure it works 
+name<-data$menus.name
+burritocompare<-cbind.data.frame(data$menus.name,burritovec)
 
-
-
-## family
-meatvec <- vector(length = nrow(data)) # beef, chicken, pork
+-## family
+  meatvec <- vector(length = nrow(data)) # beef, chicken, pork
 cheesevec <- vector(length = nrow(data)) # cheddar, american, jack, colby, fresco
 seavec <- vector(length = nrow(data))# fish, othersea
 rice <- vector(length = nrow(data))
@@ -127,6 +124,23 @@ chileverde <- vector(length = nrow(data))
 guac <- vector(length = nrow(data))
 kimchi <- vector(length = nrow(data))
 
+<<<<<<< HEAD:tacosandburritosnew.R
+## look for ingerdients in menu name column 
+### beef 
+beefvec <- vector(length = nrow(data))
+for(i in 1:nrow(data)){
+  if(grepl('beef', tolower(as.character(data$menus.name[i])))){
+    beefvec[i] <- 1
+  }else{beefvec[i] <- 0}
+}
+### chicken 
+chickenvec <- vector(length = nrow(data))
+for(i in 1:nrow(data)){
+  if(grepl('chicken', tolower(as.character(data$menus.name[i])))){
+    chickenvec[i] <- 1
+  }else{chickenvec[i] <- 0}
+}
+=======
 ingredients <- data.frame(meatvec, cheesevec, seavec, rice, vegevec, saucevec ,# pico, sourcream, chipotle, chimichurri, sriracha, ranch, crema, red,
                           ## salsa, chileverde, guac
                           beans , # refried, black, pinto, colorado
@@ -206,3 +220,4 @@ ingredients <- data.frame(meatvec, cheesevec, seavec, rice, vegevec, saucevec ,#
                           chileverde ,
                           guac ,
                           kimchi)
+>>>>>>> 49204b5c900491917b16729512cd1dbbfd2377f3:tacosandburritos.R
