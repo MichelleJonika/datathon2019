@@ -40,7 +40,7 @@ traits.iter <- c("beef", "chicken", "pork", "cheddar", "american", "jack", "colb
                  "fish", "onion", "lettuce", "tomato", "avocado", "cabbage", "potato", "mushroom",
                  "kale", "pepper", "olive", "cactus", "jicama", "quinoa", "carrot", "cucumber",
                  "corn", "pacilla", "kimchi", "pico", "sour cream", "chipotle", "chimichurri", 
-                 "sriracha", "ranch", "crema", "red", "rojo", "verde", "guac", "refried", "black beans",
+                 "sriracha", "ranch", "crema", "red", "rojo", "verde", "guac", "refried", "black bean",
                  "pinto", "colorado", "wahoo", "mahi", "roughy", "whitefish", "tuna", "cajun", "haddock",
                  "cod", "salmon", "shrimp", "crab", "lobster", "pulled pork", "adobada", "pastor", "bacon",
                  "belly", "sausage", "sirloin", "steak", "cheesesteak", "shortrib", "rib", "primerib", "prime rib",
@@ -64,11 +64,13 @@ tacos.search <- paste(tacos.trimmed1$menus.description, tacos.trimmed1$menus.nam
 # }
 
 for(trait in traits.iter){
-traits.iter.mat <- cbind(traits.iter.mat,lapply(tacos.search, grepl,pattern = trait, ignore.case = TRUE))
+traits.iter.mat <- cbind(traits.iter.mat,sapply(tacos.search, grepl,pattern = trait, ignore.case = TRUE))
 }
 
 traits.df <- as.data.frame(traits.iter.mat)
 colnames(traits.df) <- traits.iter
+
+traits.df.trues<-apply(traits.df, 1, sum)
 
 ## family
 meatvec <- vector(length = nrow(data)) # beef, chicken, pork
