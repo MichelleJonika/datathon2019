@@ -64,8 +64,11 @@ tacos.search <- paste(tacos.trimmed1$menus.description, tacos.trimmed1$menus.nam
 # }
 
 for(trait in traits.iter){
-traits.iter.mat <- cbind(traits.iter.mat,lapply(tacos.search, grepl,pattern = trait))
+traits.iter.mat <- cbind(traits.iter.mat,lapply(tacos.search, grepl,pattern = trait, ignore.case = TRUE))
 }
+
+traits.df <- as.data.frame(traits.iter.mat)
+colnames(traits.df) <- traits.iter
 
 ## family
 meatvec <- vector(length = nrow(data)) # beef, chicken, pork
