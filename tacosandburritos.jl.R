@@ -46,8 +46,14 @@ traits.iter <- c("beef", "chicken", "pork", "cheddar", "american", "jack", "colb
                  "belly", "sausage", "sirloin", "steak", "cheesesteak", "shortrib", "rib", "primerib", "prime rib",
                  "short rib", "barbacoa", "asada", "suadero", "tempeh", "tofu", "seitan", "hamburger",
                  "ground beef", "kale", "flour", "crispy", "peanut", "soft", "egg","sauce", "tomatillo",
-                 "chihuahua", "spaghetti", "almond", "rice", "calamari", "octopus", "relleno", "carnitas",
-                 "asado", "seafood", "sorpesa", "chocolate", "green chile", "brisket", "agave", "ahi"
+                 "chihuahua", "spaghetti", "almond", "rice", "calamari", "octopus", "relleno", "carnita",
+                 "asado", "seafood", "sorpesa", "choco", "green chile", "brisket", "agave", "ahi",
+                 "bean", "chorizo", "machaca","chili", "doritos", "crunchy", "flatbread", "puffy", 
+                 "cheese", "ham", "wasabi", "roja", "snapper", "dorado", "prosciutto", "queso", "pescado", 
+                 "dorrados", "walleye", "vegetarian", "turkey", "tilapia", "maiz", "duck", "portobello",
+                 "yam", "sweet potato", "grouper", "mignon", "spinach", "eel", "ice cream", "swai", 
+                 "kobe", "bulgogi", "prawn", "cilantro", "pastrami", "lentil", "lamb", "goat", "squash",
+                 "feta", "hard", "yuca", "yucca", "taco", "burrito"
                  )
 traits.iter.mat <- c()
 tacos.search <- paste(tacos.trimmed1$menus.description, tacos.trimmed1$menus.name, sep = " ")
@@ -73,6 +79,7 @@ colnames(traits.df) <- traits.iter
 
 traits.df.trues<-apply(traits.df, 1, sum)
 
+traits.df.merge <- merge(traits.df, tacos.trimmed1)
 ## family
 meatvec <- vector(length = nrow(data)) # beef, chicken, pork
 cheesevec <- vector(length = nrow(data)) # cheddar, american, jack, colby, fresco
