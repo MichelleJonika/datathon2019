@@ -44,9 +44,10 @@ traits.iter <- c("beef", "chicken", "pork", "cheddar", "american", "jack", "colb
                  "pinto", "colorado", "wahoo", "mahi", "roughy", "whitefish", "tuna", "cajun", "haddock",
                  "cod", "salmon", "shrimp", "crab", "lobster", "pulled pork", "adobada", "pastor", "bacon",
                  "belly", "sausage", "sirloin", "steak", "cheesesteak", "shortrib", "rib", "primerib", "prime rib",
-                 "short rib", "barbacoa", "carne asada", "suadero", "tempeh", "tofu", "seitan", "hamburger",
+                 "short rib", "barbacoa", "asada", "suadero", "tempeh", "tofu", "seitan", "hamburger",
                  "ground beef", "kale", "flour", "crispy", "peanut", "soft", "egg","sauce", "tomatillo",
-                 "chihuahua", "spaghetti", "almond"
+                 "chihuahua", "spaghetti", "almond", "rice", "calamari", "octopus", "relleno", "carnitas",
+                 "asado", "seafood", "sorpesa", "chocolate", "green chile", "brisket", "agave", "ahi"
                  )
 traits.iter.mat <- c()
 tacos.search <- paste(tacos.trimmed1$menus.description, tacos.trimmed1$menus.name, sep = " ")
