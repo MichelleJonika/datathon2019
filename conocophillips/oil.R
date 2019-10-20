@@ -64,7 +64,9 @@ rf.CM <- confusionMatrix(reference = as.factor(ts.test$target),
                          positive = "good")
 
 rf.testpred <- predict(rffit, testData)
-
+rf.testpred <- cbind(1:length(rf.testpred), rf.testpred)
+rf.testpred <- as.data.frame(rf.testpred)
+rf.testpred$rf.testpred <- rf.testpred$rf.testpred -1
 #makes table of confusion matrix values
 ctable <- as.table(matrix(c(186,7,10,98), nrow = 2, byrow = T))
 fourfoldplot(ctable, color = c("maroon", "black"), conf.level = 0, margin = 1,
