@@ -298,15 +298,22 @@ for(i in 1:nrow(new.data)){
 load("~/GitHub/datathon2019/tacos.trm2.merge.RData")
 preProcess_missingdata_model <- preProcess(tacos.kmeans, method='knnImpute')
 tacos.imputed <- predict(preProcess_missingdata_model, newdata = tacos.kmeans)
-
+library(plotfunctions)
 
 taco.phylo <- as.phylo(taco.phylo)
-# taco.phylo$edge.length <- taco.phylo$edge.length / max(branching.times(taco.phylo))
-conttrait <- finalspecies$beef
+conttrait <- finalspecies$beef 
+conttrait <- finalspecies$kale 
+conttrait <- finalspecies$fish 
+conttrait <- finalspecies$vegetarian 
+conttrait <- finalspecies$burrito 
+conttrait <- finalspecies$taco 
+conttrait <- finalspecies$sriracha
 names(conttrait) <- taco.phylo$tip.label
-smp <- contMap(taco.phylo,conttrait, ftype = 'off', legend = F, plot = T)
+smp <- contMap(taco.phylo,conttrait, legend = F, plot = T)
 n<-length(smp$cols)
 smp$cols[1:n]<-rainbow(n, end = 4/6)
-plot(smp, legend = F,ftype = 'off')
-gradientLegend(depth = .03, valRange = c(.24,2), side = 1, pos = .17, color = rainbow(n, end = 4/6))
-legend(x = 'bottomleft', legend = '', title = '           Cont. trait value', bg="transparent", bty = 'n')
+gradientLegend(depth = .03, valRange = c(round(min(conttrait),3),
+                                         round(max(conttrait),3)), 
+               side = 1, pos = .17, color = rainbow(n, end = 4/6))
+legend(x = 'bottomleft', legend = '', bg="transparent", bty = 'n')
+
