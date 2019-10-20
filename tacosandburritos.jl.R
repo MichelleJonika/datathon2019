@@ -329,7 +329,7 @@ tacos.trm2.merge1$postalCode <-as.integer(tacos.trm2.merge1$postalCode)
 tacos.citymerge <- merge(tacos.trm2.merge1, demo.data[,c(6,17)])
 
 library(klaR)
-kmodefit <- kmodes(na.omit(tacos.kmeans.imputed[,-c(3:5)]), modes = 25)
+kmodefit <- kmodes(na.omit(tacos.kmeans.imputed[,-c(3:5)]), modes = 15)
 tacos.final <- na.omit(tacos.kmeans.imputed[,-c(3:5)])
 kmodefit$cluster
 tacos.final$kmode <- kmodefit$cluster
@@ -337,7 +337,7 @@ tacos.final <- tacos.final[,-c(1:4, 135,136)]
 tacos.final <- cbind(tacos.final, tacos.kmeans.imputed[rownames(tacos.final),3:5])
 tacos.final <- as.data.frame(sapply(tacos.final, as.numeric))
 finalspecies <- c()
-for(i in 1:25){
+for(i in 1:15){
   sum<-apply(tacos.final[tacos.final$kmode == i,-127], 2, sum)
   finalspecies <- rbind(finalspecies,sum/nrow(tacos.final[tacos.final$kmode == i,]))
 }
