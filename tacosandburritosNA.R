@@ -208,7 +208,50 @@ ingredients <- data.frame(meatvec, cheesevec, seavec, rice, vegevec, saucevec ,#
                           kimchi)
 
 idx <- c()
-for(i in 1:nrow(tacos.trimmed)){
+for(i in 1:nrow(tacos.trimmed1)){
   if(sum(as.numeric(traits.df[i,])) == 0){idx <- c(idx,i)}
 }
+x <- tacos.trimmed1[idx,c('menus.description','menus.name')]
+View(x)
 
+
+
+
+
+
+
+data <- read.csv('just tacos and burritos.csv')
+x <- head(data)
+x
+data <- data[,1:26]
+
+traits.iter <- c("beef", "chicken", "pork", "cheddar", "american", "jack", "colby", "fresco",
+                 "fish", "onion", "lettuce", "tomato", "avocado", "cabbage", "potato", "mushroom",
+                 "kale", "pepper", "olive", "cactus", "jicama", "quinoa", "carrot", "cucumber",
+                 "corn", "pacilla", "kimchi", "pico", "sour cream", "chipotle", "chimichurri", 
+                 "sriracha", "ranch", "crema", "red", "rojo", "verde", "guac", "refried", "black bean",
+                 "pinto", "colorado", "wahoo", "mahi", "roughy", "whitefish", "tuna", "cajun", "haddock",
+                 "cod", "salmon", "shrimp", "crab", "lobster", "pulled pork", "adobada", "pastor", "bacon",
+                 "belly", "sausage", "sirloin", "steak", "cheesesteak", "shortrib", "rib", "primerib", "prime rib",
+                 "short rib", "barbacoa", "asada", "suadero", "tempeh", "tofu", "seitan", "hamburger",
+                 "ground beef", "kale", "flour", "crispy", "peanut", "soft", "egg","sauce", "tomatillo",
+                 "chihuahua", "spaghetti", "almond", "rice", "calamari", "octopus", "relleno", "carnita",
+                 "asado", "seafood", "sorpesa", "choco", "green chile", "brisket", "agave", "ahi",
+                 "bean", "chorizo", "machaca","chili", "doritos", "crunchy", "flatbread", "puffy", 
+                 "cheese", "ham", "wasabi", "roja", "snapper", "dorado", "prosciutto", "queso", "pescado", 
+                 "dorrados", "walleye", "vegetarian", "turkey", "tilapia", "maiz", "duck", "portobello",
+                 "yam", "sweet potato", "grouper", "mignon", "spinach", "eel", "ice cream", "swai", 
+                 "kobe", "bulgogi", "prawn", "cilantro", "pastrami", "lentil", "lamb", "goat", "squash",
+                 "feta", "hard", "yuca", "yucca", "taco", "burrito"
+)
+traits.iter.mat <- c()
+tacos.search <- paste(tacos.trimmed1$menus.description, tacos.trimmed1$menus.name, sep = " ")
+
+for(trait in traits.iter){
+  traits.iter.mat <- cbind(traits.iter.mat,sapply(tacos.search, grepl,pattern = trait, ignore.case = TRUE))
+}
+
+traits.df <- as.data.frame(traits.iter.mat)
+colnames(traits.df) <- traits.iter
+
+traits.df.trues<-apply(traits.df, 1, sum)

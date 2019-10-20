@@ -28,6 +28,8 @@ range(tacos$priceRangeMin)
 
 tacos.trimmed <- tacos[,-c(1,5,7,8,9,12,15,16,17,22:236)]
 sum(as.numeric(is.na(tacos.trimmed)))
-tacos.trimmed1 <- tacos.trimmed[!tacos.trimmed$latitude==0,]
+tacos.trimmed1 <- tacos.trimmed[!tacos.trimmed$latitude=="",]
 length(unique(tacos$address))
 length(unique(tacos$id))
+tacos.trimmed1$latitude <- as.numeric(tacos.trimmed1$latitude)
+tacos.trimmed1$longitude <- as.numeric(tacos.trimmed1$longitude)
