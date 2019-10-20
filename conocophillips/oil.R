@@ -49,6 +49,8 @@ ts.train <- train.sample[ts.index$`1:nrow(train.sample)`,]
 ts.test <- train.sample[-ts.index$`1:nrow(train.sample)`,]
 
 ctrl <- trainControl(method = "repeatedcv", repeats = 5, number = 10, classProbs = T)
+
+#this is our final model
 rffit <- train(factor(target) ~., 
                data = ts.train, 
                method = "rf", 
