@@ -266,7 +266,9 @@ trait <- X.quanti$Fruity
 names(trait) <- tree$tip.label
 plot(contMap(tree,trait))
 
-
+taco.dist <- dist(finalspecies)
+taco.phylo <- hclust(taco.dist)
+plot(taco.phylo)
 
 
 

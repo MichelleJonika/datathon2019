@@ -234,7 +234,110 @@ tacos.trimmed.merge[tacos.trimmed.merge$dorrados, "dorados"] = TRUE
 tacos.trimmed.merge$dorrados<- NULL
 tacos.trimmed.merge[tacos.trimmed.merge$portobello, "mushroom"] = TRUE
 tacos.trimmed.merge$portobello <- NULL
+tacos.trimmed.merge$cuisine <- c()
+levels(tacos.trimmed.merge$cuisine) <- c("mexican", "asian", "american", "latin", "greek", "texmex", "italian", "french")
+tacos.search2 <- paste(tacos.trimmed.merge$categories, tacos.trimmed.merge$cuisines, sep = " ")
+cuisine <-C()
+for(obs in 1:nrow(tacos.trimmed.merge)){
+  if(grepl("american", tacos.search2[obs], ignore.case = TRUE)){
+    cuisine[obs] <- "american"
+  }
+  else if(grepl("mexican", tacos.search2[obs], ignore.case = TRUE)){
+    cuisine[obs] <- "mexican"
+  }
+  else if(grepl("latin", tacos.search2[obs],ignore.case=TRUE)){
+    cuisine[obs] <- "latin"
+  }
+  else if(grepl("asian", tacos.search2[obs],ignore.case=TRUE)){
+    cuisine[obs] <- "asian"
+  }
+  else if(grepl("greek", tacos.search2[obs],ignore.case=TRUE)){
+    cuisine[obs] <- "latin"
+  }
+  else if(grepl("mediterranean", tacos.search2[obs],ignore.case=TRUE)){
+    cuisine[obs] <- "greek"
+  }
+  else if(grepl("tex", tacos.search2[obs],ignore.case=TRUE)){
+    cuisine[obs] <- "texmex"
+  }
+  else if(grepl("italian", tacos.search2[obs],ignore.case=TRUE)){
+    cuisine[obs] <- "italian"
+  }
+  else if(grepl("french", tacos.search2[obs],ignore.case=TRUE)){
+    cuisine[obs] <- "french"
+  }
+  else if(grepl("korean", tacos.search2[obs],ignore.case=TRUE)){
+    cuisine[obs] <- "asian"
+  }
+  else if(grepl("japanese", tacos.search2[obs],ignore.case=TRUE)){
+    cuisine[obs] <- "asian"
+  }
+}
+tacos.trimmed.merge$cuisine <- cuisine
+levels(tacos.trimmed.merge$cuisine) <- unique(cuisine)
 
+venue.type <- c()
+for(obs in 1:nrow(tacos.trimmed.merge)){
+  if(grepl("coffee", tacos.search2[obs], ignore.case = TRUE)){
+    venue.type[obs] <- "coffeeshop"
+  }
+  else if(grepl("takeout", tacos.search2[obs], ignore.case = TRUE)){
+    venue.type[obs] <- "delivery"
+  }
+  else if(grepl("take-out", tacos.search2[obs], ignore.case = TRUE)){
+    venue.type[obs] <- "delivery"
+  }
+  else if(grepl("take out", tacos.search2[obs], ignore.case = TRUE)){
+    venue.type[obs] <- "delivery"
+  }
+  else if(grepl("delivery", tacos.search2[obs], ignore.case = TRUE)){
+    venue.type[obs] <- "delivery"
+  }
+  else if(grepl("fast", tacos.search2[obs], ignore.case = TRUE)){
+    venue.type[obs] <- "fastfood"
+  }
+  else if(grepl("wings", tacos.search2[obs], ignore.case = TRUE)){
+    venue.type[obs] <- "wings"
+  }
+  else if(grepl("sandwich", tacos.search2[obs], ignore.case = TRUE)){
+    venue.type[obs] <- "sandwich"
+  }
+  else if(grepl("diner", tacos.search2[obs], ignore.case = TRUE)){
+    venue.type[obs] <- "diner"
+  }
+  else if(grepl("music", tacos.search2[obs], ignore.case = TRUE)){
+    venue.type[obs] <- "bar"
+  }
+  else if(grepl("buffet", tacos.search2[obs], ignore.case = TRUE)){
+    venue.type[obs] <- "buffet"
+  }
+  else if(grepl("convenience", tacos.search2[obs], ignore.case = TRUE)){
+    venue.type[obs] <- "convenience"
+  }
+  else if(grepl("bar", tacos.search2[obs], ignore.case = TRUE)){
+    venue.type[obs] <- "bar"
+  }
+}
+venue.type[55636] <- ""
+tacos.trimmed.merge$venue.type <- venue.type
+tacos.trm2.merge <- tacos.trimmed.merge[,-c(2,4)]
+
+tacos.trm2.merge1 <- tacos.trm2.merge[which(tacos.trm2.merge$longitude<=0),]
+tacos.trm2.merge1 <- tacos.trm2.merge[which(tacos.trm2.merge1$latitude>=10),]
+rownames(tacos.trm2.merge1)<-c()
+library(klaR)
+kmodefit <- kmodes(na.omit(tacos.trm2.merge[,-c(3:6)]), modes = 25)
+tacos.trm3 <- na.omit(tacos.trm2.merge[,-c(3:6)])
+kmodefit$cluster
+tacos.trm3$kmode <- kmodefit$cluster
+tacos.trm4 <- tacos.trm3[,-c(1:10, 137:138)]
+tacos.trm4 <- as.data.frame(sapply(tacos.trm4, as.numeric))
+finalspecies <- c()
+for(i in 1:25){
+  sum<-apply(tacos.trm4[tacos.trm4$kmode == i,-127], 2, sum)
+  finalspecies <- rbind(finalspecies,sum/nrow(tacos.trm4[tacos.trm4$kmode == i,]))
+}
+finalspecies <- as.data.frame(finalspecies)
 ## family
 meatvec <- vector(length = nrow(data)) # beef, chicken, pork
 cheesevec <- vector(length = nrow(data)) # cheddar, american, jack, colby, fresco
