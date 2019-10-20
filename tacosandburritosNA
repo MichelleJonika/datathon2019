@@ -54,7 +54,7 @@ traits.iter <- c("beef", "chicken", "pork", "cheddar", "american", "jack", "colb
                  "yam", "sweet potato", "grouper", "mignon", "spinach", "eel", "ice cream", "swai", 
                  "kobe", "bulgogi", "prawn", "cilantro", "pastrami", "lentil", "lamb", "goat", "squash",
                  "feta", "hard", "yuca", "yucca", "taco", "burrito"
-)
+                 )
 traits.iter.mat <- c()
 tacos.search <- paste(tacos.trimmed1$menus.description, tacos.trimmed1$menus.name, sep = " ")
 
@@ -71,7 +71,7 @@ tacos.search <- paste(tacos.trimmed1$menus.description, tacos.trimmed1$menus.nam
 # }
 
 for(trait in traits.iter){
-  traits.iter.mat <- cbind(traits.iter.mat,sapply(tacos.search, grepl,pattern = trait, ignore.case = TRUE))
+traits.iter.mat <- cbind(traits.iter.mat,sapply(tacos.search, grepl,pattern = trait, ignore.case = TRUE))
 }
 
 traits.df <- as.data.frame(traits.iter.mat)
@@ -127,7 +127,7 @@ tacos.trimmed.merge[tacos.trimmed.merge$grouper, "fish"] = TRUE
 tacos.trimmed.merge[tacos.trimmed.merge$eel, "fish"] = TRUE
 tacos.trimmed.merge[tacos.trimmed.merge$swai, "fish"] = TRUE
 
-
+ 
 ifelse(tacos.trimmed.merge$jack, tacos.trimmed.merge$cheese = T)
 ## family
 meatvec <- vector(length = nrow(data)) # beef, chicken, pork
@@ -289,5 +289,5 @@ for(i in 1:nrow(new.data)){
       count <- count + 1
     }
   }
-  
+
 }
