@@ -322,6 +322,22 @@ venue.type[55636] <- ""
 tacos.trimmed.merge$venue.type <- venue.type
 tacos.trm2.merge <- tacos.trimmed.merge[,-c(2,4)]
 
+tacos.trm2.merge1 <- tacos.trm2.merge[which(tacos.trm2.merge$longitude<=0),]
+tacos.trm2.merge1 <- tacos.trm2.merge[which(tacos.trm2.merge1$latitude>=10),]
+rownames(tacos.trm2.merge1)<-c()
+library(klaR)
+kmodefit <- kmodes(na.omit(tacos.trm2.merge[,-c(3:6)]), modes = 25)
+tacos.trm3 <- na.omit(tacos.trm2.merge[,-c(3:6)])
+kmodefit$cluster
+tacos.trm3$kmode <- kmodefit$cluster
+tacos.trm4 <- tacos.trm3[,-c(1:10, 137:138)]
+tacos.trm4 <- as.data.frame(sapply(tacos.trm4, as.numeric))
+finalspecies <- c()
+for(i in 1:25){
+  sum<-apply(tacos.trm4[tacos.trm4$kmode == i,-127], 2, sum)
+  finalspecies <- rbind(finalspecies,sum/nrow(tacos.trm4[tacos.trm4$kmode == i,]))
+}
+finalspecies <- as.data.frame(finalspecies)
 ## family
 meatvec <- vector(length = nrow(data)) # beef, chicken, pork
 cheesevec <- vector(length = nrow(data)) # cheddar, american, jack, colby, fresco
