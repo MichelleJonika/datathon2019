@@ -293,3 +293,18 @@ for(i in 1:nrow(new.data)){
   }
   
 }
+
+
+load("~/GitHub/datathon2019/tacos.trm2.merge.RData")
+preProcess_missingdata_model <- preProcess(tacos.kmeans, method='knnImpute')
+tacos.imputed <- predict(preProcess_missingdata_model, newdata = tacos.kmeans)
+
+
+taco.phylo <- as.phylo(taco.phylo)
+# taco.phylo$edge.length <- taco.phylo$edge.length / max(branching.times(taco.phylo))
+smp <- contMap(taco.phylo,finalspecies$beef, ftype = 'off', legend = F, plot = T)
+n<-length(smp$cols)
+smp$cols[1:n]<-rainbow(n, end = 4/6)
+plot(smp, legend = F,ftype = 'off')
+gradientLegend(depth = .03, valRange = c(.24,2), side = 1, pos = .17, color = rainbow(n, end = 4/6))
+legend(x = 'bottomleft', legend = '', title = '           Cont. trait value', bg="transparent", bty = 'n')
