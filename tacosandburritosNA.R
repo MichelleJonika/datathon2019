@@ -302,7 +302,9 @@ tacos.imputed <- predict(preProcess_missingdata_model, newdata = tacos.kmeans)
 
 taco.phylo <- as.phylo(taco.phylo)
 # taco.phylo$edge.length <- taco.phylo$edge.length / max(branching.times(taco.phylo))
-smp <- contMap(taco.phylo,finalspecies$beef, ftype = 'off', legend = F, plot = T)
+conttrait <- finalspecies$beef
+names(conttrait) <- taco.phylo$tip.label
+smp <- contMap(taco.phylo,conttrait, ftype = 'off', legend = F, plot = T)
 n<-length(smp$cols)
 smp$cols[1:n]<-rainbow(n, end = 4/6)
 plot(smp, legend = F,ftype = 'off')
