@@ -325,17 +325,21 @@ tacos.trm2.merge <- tacos.trimmed.merge[,-c(2,4)]
 tacos.trm2.merge1 <- tacos.trm2.merge[which(tacos.trm2.merge$longitude<=0),]
 tacos.trm2.merge1 <- tacos.trm2.merge[which(tacos.trm2.merge1$latitude>=10),]
 rownames(tacos.trm2.merge1)<-c()
+tacos.trm2.merge1$postalCode <-as.integer(tacos.trm2.merge1$postalCode)
+tacos.citymerge <- merge(tacos.trm2.merge1, demo.data[,c(6,17)])
+
 library(klaR)
-kmodefit <- kmodes(na.omit(tacos.trm2.merge[,-c(3:6)]), modes = 25)
-tacos.trm3 <- na.omit(tacos.trm2.merge[,-c(3:6)])
+kmodefit <- kmodes(na.omit(tacos.kmeans.imputed[,-c(3:5)]), modes = 25)
+tacos.final <- na.omit(tacos.kmeans.imputed[,-c(3:5)])
 kmodefit$cluster
-tacos.trm3$kmode <- kmodefit$cluster
-tacos.trm4 <- tacos.trm3[,-c(1:10, 137:138)]
-tacos.trm4 <- as.data.frame(sapply(tacos.trm4, as.numeric))
+tacos.final$kmode <- kmodefit$cluster
+tacos.final <- tacos.final[,-c(1:4, 135,136)]
+tacos.final <- cbind(tacos.final, tacos.kmeans.imputed[rownames(tacos.final),3:5])
+tacos.final <- as.data.frame(sapply(tacos.final, as.numeric))
 finalspecies <- c()
 for(i in 1:25){
-  sum<-apply(tacos.trm4[tacos.trm4$kmode == i,-127], 2, sum)
-  finalspecies <- rbind(finalspecies,sum/nrow(tacos.trm4[tacos.trm4$kmode == i,]))
+  sum<-apply(tacos.final[tacos.final$kmode == i,-127], 2, sum)
+  finalspecies <- rbind(finalspecies,sum/nrow(tacos.final[tacos.final$kmode == i,]))
 }
 finalspecies <- as.data.frame(finalspecies)
 ## family
