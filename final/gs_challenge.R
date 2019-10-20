@@ -369,3 +369,47 @@ gradientLegend(depth = .03, valRange = c(round(min(conttrait),3),
                                          round(max(conttrait),3)), 
                side = 1, pos = .17, color = rainbow(n, end = 4/6))
 legend(x = 'bottomleft', legend = '', bg="transparent", bty = 'n')
+
+par(mfrow = c(1,2))
+conttrait <- finalspecies$kimchi
+names(conttrait) <- taco.phylo$tip.label
+smp <- contMap(taco.phylo,conttrait, legend = F, plot = T)
+n<-length(smp$cols)
+smp$cols[1:n]<-rainbow(n, end = 4/6)
+# gradientLegend(depth = .02, valRange = c(round(min(conttrait),3),
+#                                          round(max(conttrait),3)), 
+#                side = 1, pos = .17, color = rainbow(n, end = 4/6),dec = -1)
+# legend(x = 'bottomleft', legend = '', title = 'Standardized Trait Value', bg="transparent", bty = 'n')
+title(main = '\nKimchi Trait Mapping')
+conttrait <- finalspecies$bulgogi
+names(conttrait) <- taco.phylo$tip.label
+smp <- contMap(taco.phylo,conttrait, legend = F, plot = T)
+n<-length(smp$cols)
+smp$cols[1:n]<-rainbow(n, end = 4/6)
+# gradientLegend(depth = .02, valRange = c(round(min(conttrait),3),
+#                                          round(max(conttrait),3)), 
+#                side = 1, pos = .17, color = rainbow(n, end = 4/6),dec = -1)
+# legend(x = 'bottomleft', legend = '', title = 'Standardized Trait Value', bg="transparent", bty = 'n')
+title(main = '\nBulgogi Trait Mapping')
+par(mfrow = c(1,2))
+conttrait <- finalspecies$beef
+names(conttrait) <- taco.phylo$tip.label
+smp <- contMap(taco.phylo,conttrait, legend = F, plot = T)
+n<-length(smp$cols)
+smp$cols[1:n]<-rainbow(n, end = 4/6)
+# gradientLegend(depth = .02, valRange = c(round(min(conttrait),3),
+#                                          round(max(conttrait),3)),
+#                side = 1, pos = .17, color = rainbow(n, end = 4/6),dec = -1)
+# legend(x = 'bottomleft', legend = '', title = 'Standardized Trait Value', bg="transparent", bty = 'n')
+title(main = '\nBeef Trait Mapping')
+conttrait <- finalspecies$vegetarian
+names(conttrait) <- taco.phylo$tip.label
+smp <- contMap(taco.phylo,conttrait, legend = F, plot = T)
+n<-length(smp$cols)
+smp$cols[1:n]<-rainbow(n, end = 4/6)
+# gradientLegend(depth = .02, valRange = c(round(min(conttrait),3),
+#                                          round(max(conttrait),3)), 
+#                side = 1, pos = .17, color = rainbow(n, end = 4/6),dec = -1)
+# legend(x = 'bottomleft', legend = '', title = 'Standardized Trait Value', bg="transparent", bty = 'n')
+title(main = '\nVegetarian Trait Mapping')
+
