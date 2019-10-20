@@ -36,9 +36,99 @@ for(i in 1:nrow(data)){
   }else{burritovec[i] <- 0}
 }
 
+traits.iter <- c("beef", "chicken", "pork", "cheddar", "american", "jack", "colby", "fresco",
+                 "fish", "onion", "lettuce", "tomato", "avocado", "cabbage", "potato", "mushroom",
+                 "kale", "pepper", "olive", "cactus", "jicama", "quinoa", "carrot", "cucumber",
+                 "corn", "pacilla", "kimchi", "pico", "sour cream", "chipotle", "chimichurri", 
+                 "sriracha", "ranch", "crema", "red", "rojo", "verde", "guac", "refried", "black bean",
+                 "pinto", "colorado", "wahoo", "mahi", "roughy", "whitefish", "tuna", "cajun", "haddock",
+                 "cod", "salmon", "shrimp", "crab", "lobster", "pulled pork", "adobada", "pastor", "bacon",
+                 "belly", "sausage", "sirloin", "steak", "cheesesteak", "shortrib", "rib", "primerib", "prime rib",
+                 "short rib", "barbacoa", "asada", "suadero", "tempeh", "tofu", "seitan", "hamburger",
+                 "ground beef", "kale", "flour", "crispy", "peanut", "soft", "egg","sauce", "tomatillo",
+                 "chihuahua", "spaghetti", "almond", "rice", "calamari", "octopus", "relleno", "carnita",
+                 "asado", "seafood", "sorpesa", "choco", "green chile", "brisket", "agave", "ahi",
+                 "bean", "chorizo", "machaca","chili", "doritos", "crunchy", "flatbread", "puffy", 
+                 "cheese", "ham", "wasabi", "roja", "snapper", "dorado", "prosciutto", "queso", "pescado", 
+                 "dorrados", "walleye", "vegetarian", "turkey", "tilapia", "maiz", "duck", "portobello",
+                 "yam", "sweet potato", "grouper", "mignon", "spinach", "eel", "ice cream", "swai", 
+                 "kobe", "bulgogi", "prawn", "cilantro", "pastrami", "lentil", "lamb", "goat", "squash",
+                 "feta", "hard", "yuca", "yucca", "taco", "burrito"
+)
+traits.iter.mat <- c()
+tacos.search <- paste(tacos.trimmed1$menus.description, tacos.trimmed1$menus.name, sep = " ")
+
+# for(obs in 1:nrow(tacos.trimmed1))
+# {
+#   if(tacos.trimmed1$menus.description!= "")
+#   {
+#     tacos.search <- c(tacos.search, tacos.trimmed1$menus.description[obs])
+#   }
+#   else
+#   {
+#     tacos.search <- c(tacos.search, tacos.trimmed1$menus.name[obs])
+#   }
+# }
+
+for(trait in traits.iter){
+  traits.iter.mat <- cbind(traits.iter.mat,sapply(tacos.search, grepl,pattern = trait, ignore.case = TRUE))
+}
+
+traits.df <- as.data.frame(traits.iter.mat)
+colnames(traits.df) <- traits.iter
+
+traits.df.trues<-apply(traits.df, 1, sum)
+
+tacos.trimmed.merge <- data.frame(tacos.trimmed1, traits.df)
+tacos.unpared.cols <- colnames(tacos.trimmed.merge)
+tacos.trimmed.merge$latitude <- as.numeric(tacos.trimmed.merge$latitude)
+tacos.trimmed.merge$longitude<- as.numeric(tacos.trimmed.merge$longitude)
+
+tacos.trimmed.merge[tacos.trimmed.merge$jack, "cheese"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$colby, "cheese"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$cheddar, "cheese"]= TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$american, "cheese"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$fresco, "cheese"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$cheesesteak, "cheese"] = TRUE
+
+tacos.trimmed.merge[tacos.trimmed.merge$steak, "beef"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$shortrib, "beef"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$short.rib, "beef"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$prime.rib, "beef"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$primerib, "beef"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$bulgogi, "beef"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$kobe, "beef"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$brisket, "beef"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$ground.beef, "beef"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$hamburger, "beef"] = TRUE
+
+tacos.trimmed.merge[tacos.trimmed.merge$refried, "bean"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$black.bean, "bean"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$lentil, "bean"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$pinto, "bean"] = TRUE
+
+tacos.trimmed.merge[tacos.trimmed.merge$wahoo, "fish"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$mahi, "fish"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$roughy, "fish"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$tuna, "fish"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$whitefish, "fish"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$haddock, "fish"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$cod, "fish"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$salmon, "fish"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$ahi, "fish"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$tuna, "fish"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$snapper, "fish"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$dorado, "fish"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$pescado, "fish"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$dorrados, "fish"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$walleye, "fish"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$tilapia, "fish"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$grouper, "fish"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$eel, "fish"] = TRUE
+tacos.trimmed.merge[tacos.trimmed.merge$swai, "fish"] = TRUE
 
 
-
+ifelse(tacos.trimmed.merge$jack, tacos.trimmed.merge$cheese = T)
 ## family
 meatvec <- vector(length = nrow(data)) # beef, chicken, pork
 cheesevec <- vector(length = nrow(data)) # cheddar, american, jack, colby, fresco
@@ -127,131 +217,77 @@ chileverde <- vector(length = nrow(data))
 guac <- vector(length = nrow(data))
 kimchi <- vector(length = nrow(data))
 
-ingredients <- data.frame(meatvec, cheesevec, seavec, rice, vegevec, saucevec ,# pico, sourcream, chipotle, chimichurri, sriracha, ranch, crema, red,
-                          ## salsa, chileverde, guac
-                          beans , # refried, black, pinto, colorado
-                          ## ingredients
-                          fish ,# wahoo, mahi, white, tuna, cajun, haddock,cod, salmon, roughy
-                          othersea , # shrimp, crab, lobster
-                          pork , # pulled, adobada, pastor, bacon, belly, sausage, sirloin
-                          beef , # steak, cheesesteak, shortrib, primerib, barbacoa, carneasada, suadero,
-                          vegesubs , # tempeh
-                          onion ,
-                          cheddar ,
-                          lettuce,
-                          refried,
-                          tomato ,
-                          chicken ,
-                          pico ,
-                          wahoo ,
-                          avocado ,
-                          cabbage ,
-                          pulledcarnitaskalua ,
-                          steak ,
-                          shrimp ,
-                          corntortilla ,
-                          black ,
-                          rice ,
-                          pinto ,
-                          potatoes ,
-                          mushrooms ,
-                          kale ,
-                          cheesesteak ,
-                          spaghetti ,
-                          mahi ,
-                          shortrib ,
-                          primerib ,
-                          adobada ,
-                          barbacoa ,
-                          carneasada ,
-                          american ,
-                          sourcream ,
-                          peppers ,
-                          flourtortilla ,
-                          colorado ,
-                          chipotle ,
-                          jack ,
-                          white ,
-                          tuna ,
-                          crab ,
-                          olive ,
-                          pastor ,
-                          cajun ,
-                          colby ,
-                          haddock ,
-                          cactus,
-                          lobster,
-                          cod ,
-                          suadero ,
-                          jicama ,
-                          bacon ,
-                          tempeh ,
-                          fresco ,
-                          chimichurri ,
-                          salmon ,
-                          quinoa ,
-                          cucumber ,
-                          carrot ,
-                          sriracha ,
-                          roughy ,
-                          corn ,
-                          pacilla ,
-                          belly ,
-                          sausagechorizo ,
-                          ranch ,
-                          crema ,
-                          sirloin ,
-                          redrojo ,
-                          salsa ,
-                          chileverde ,
-                          guac ,
-                          kimchi)
 
-idx <- c()
-for(i in 1:nrow(tacos.trimmed1)){
-  if(sum(as.numeric(traits.df[i,])) == 0){idx <- c(idx,i)}
+
+
+
+
+
+
+
+
+
+
+
+
+load("~/GitHub/datathon2019/conocophillips/tacos.trimmed1.RData")
+for(i in 5:8){
+  tacos.trimmed1[,i] <- as.numeric(tacos.trimmed1[,i])
 }
-x <- tacos.trimmed1[idx,c('menus.description','menus.name')]
-View(x)
+# count <- c()
+# for(i in 1:nrow(tacos.trimmed1)){
+#   if(!is.na(tacos.trimmed1$menus.amountMax)[i]){
+#     if(sum(tacos.trimmed1$menus.amountMax[i] != tacos.trimmed1$menus.amountMin[i])){
+#       count <- c(count, i)
+#     }
+#   }
+# }
+
+
+tacos.trimmed1 <- tacos.trimmed1[,-8]
+
+preProcess_missingdata_model <- preProcess(tacos.trimmed1, method='knnImpute')
+
+trainData <- predict(preProcess_missingdata_model, newdata = tacos.trimmed1)
+anyNA(trainData)
+
+##  converting categorical variables to numeric to be used in machine learning
+# One-Hot Encoding
+# Creating dummy variables is converting a categorical variable to as many binary variables as here are categories.
+# dummies_model <- dummyVars(Purchase ~ ., data=trainData)
+randomsample <- trainData[(sample(1:nrow(tacos.trimmed1), 5000)),]
+
+X.quanti <- PCAmixdata::splitmix(randomsample)$X.quanti
+X.quali <- PCAmixdata::splitmix(randomsample)$X.quali
+tree <- hclustvar(t(X.quanti))
+plot(tree)
+tree <- as.phylo(tree)
+trait <- X.quanti$Fruity
+names(trait) <- tree$tip.label
+plot(contMap(tree,trait))
 
 
 
 
 
-
-
-data <- read.csv('just tacos and burritos.csv')
-x <- head(data)
-x
-data <- data[,1:26]
-
-traits.iter <- c("beef", "chicken", "pork", "cheddar", "american", "jack", "colby", "fresco",
-                 "fish", "onion", "lettuce", "tomato", "avocado", "cabbage", "potato", "mushroom",
-                 "kale", "pepper", "olive", "cactus", "jicama", "quinoa", "carrot", "cucumber",
-                 "corn", "pacilla", "kimchi", "pico", "sour cream", "chipotle", "chimichurri", 
-                 "sriracha", "ranch", "crema", "red", "rojo", "verde", "guac", "refried", "black bean",
-                 "pinto", "colorado", "wahoo", "mahi", "roughy", "whitefish", "tuna", "cajun", "haddock",
-                 "cod", "salmon", "shrimp", "crab", "lobster", "pulled pork", "adobada", "pastor", "bacon",
-                 "belly", "sausage", "sirloin", "steak", "cheesesteak", "shortrib", "rib", "primerib", "prime rib",
-                 "short rib", "barbacoa", "asada", "suadero", "tempeh", "tofu", "seitan", "hamburger",
-                 "ground beef", "kale", "flour", "crispy", "peanut", "soft", "egg","sauce", "tomatillo",
-                 "chihuahua", "spaghetti", "almond", "rice", "calamari", "octopus", "relleno", "carnita",
-                 "asado", "seafood", "sorpesa", "choco", "green chile", "brisket", "agave", "ahi",
-                 "bean", "chorizo", "machaca","chili", "doritos", "crunchy", "flatbread", "puffy", 
-                 "cheese", "ham", "wasabi", "roja", "snapper", "dorado", "prosciutto", "queso", "pescado", 
-                 "dorrados", "walleye", "vegetarian", "turkey", "tilapia", "maiz", "duck", "portobello",
-                 "yam", "sweet potato", "grouper", "mignon", "spinach", "eel", "ice cream", "swai", 
-                 "kobe", "bulgogi", "prawn", "cilantro", "pastrami", "lentil", "lamb", "goat", "squash",
-                 "feta", "hard", "yuca", "yucca", "taco", "burrito"
-)
-traits.iter.mat <- c()
-tacos.search <- paste(tacos.trimmed1$menus.description, tacos.trimmed1$menus.name, sep = " ")
-
-for(trait in traits.iter){
-  traits.iter.mat <- cbind(traits.iter.mat,sapply(tacos.search, grepl,pattern = trait, ignore.case = TRUE))
+new.data <- read.csv('kaggle_income.csv')
+new.data$Lat
+matched.data <- array(dim = c(nrow(tacos.trimmed1),2))
+count <- 1
+used <- array(dim = c(nrow(tacos.trimmed1),2))
+for(i in 1:nrow(new.data)){
+  lat <- new.data$Lat[i]
+  lon <- new.data$Lon[i]
+  for(j in 1:nrow(tacos.trimmed1)){
+    latit <- tacos.trimmed1$latitude[j]
+    longit <- tacos.trimmed1$longitude[j]
+    if(abs(lat - latit) < .01 & abs(lon - longit) < .01){
+      matched.data[count,1] <- lat
+      matched.data[count,2] <- lon
+      used[count,1] <- i
+      used[count,2] <- j
+      count <- count + 1
+    }
+  }
+  
 }
-
-traits.df <- as.data.frame(traits.iter.mat)
-colnames(traits.df) <- traits.iter
-
-traits.df.trues<-apply(traits.df, 1, sum)
